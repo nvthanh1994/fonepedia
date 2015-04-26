@@ -8,6 +8,11 @@ var app = express();
 require('./config/database').run();
 require('./config/express')(app);
 
+
+app.use(express.static(__dirname + '/public'));
+app.set('views', __dirname + '/public/views');
+
+
 app.post('/v1/api/login', routes.login);
 app.post('/v1/api/signup', routes.signup);
 
@@ -19,13 +24,13 @@ app.post('/v1/api/phone', routes.phone.create);
 
 var FRONTEND = ['/', '/group/:id', '/login', '/logout', '/config'];
 app.get(FRONTEND, function (req, res) {
-  debug(req);
-  res.render('../views/index.html');
+    debug(req);
+    res.render('index.html');
 });
 
 
-app.set('port', process.env.PORT || 6969);
+app.set('port', process.env.PORT || 8000);
 
 var server = app.listen(app.get('port'), function () {
-  console.log('Express server listening on port ' + server.address().port);
+    console.log('Express server listening on port ' + server.address().port);
 });

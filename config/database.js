@@ -4,7 +4,7 @@ exports.run = function () {
     host     : 'localhost',
     user     : 'root',
     password : '12345',
-    database : 'sinhvien'
+    database : 'fonepedia'
   });
   connection.connect();
   exports.connection = connection;

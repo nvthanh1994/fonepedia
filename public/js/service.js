@@ -2,23 +2,28 @@
 
 /* Services */
 
-
 var myAppServices = angular.module('myAppServices', ['ngResource']);        // Services Module
 
 // Brand Service
 myAppServices.factory('Brand',['$resource',function($resource){
-
+    return $resource('v1/api/brand/:brandId',{},{
+        query : {
+            method : 'GET',
+            params : {
+                brandId : ''
+            }
+        }
+    });
 }]);
 
 // Phone Service
 myAppServices.factory('Phone', ['$resource', function ($resource) {
-    return $resource('phones/:phoneId.json', {}, {
+    return $resource('v1/api/phone/:phoneId', {}, {
         query: {
             method: 'GET',
             params: {
-                phoneId: 'all'
-            },
-            isArray: true
+                phoneId: ''
+            }
         }
     });
 }]);

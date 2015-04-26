@@ -1,7 +1,7 @@
 module.exports = function (req, res) {
   var connection = require('./../../config/database').connection;
   connection.query(
-    'SELECT * FROM Brand',
+    'SELECT * FROM Brand order by name',
     function (err, rows, fields) {
       if (err) {
         res.json({error_code : 1, msg : err.toString()});
