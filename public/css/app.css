@@ -189,7 +189,6 @@ html {
     min-height: 100%;
 }
 body {
-    /* Margin bottom by footer height */
     margin-bottom: 40px;
     margin-top : 70px;
 }

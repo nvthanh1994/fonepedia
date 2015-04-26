@@ -1,15 +1,17 @@
 var debug = require('debug')('Hvac');
 
 var express = require('express');
-var path = require('path');
 
 var routes = require('./routes/index');
 var app = express();
-app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, 'public')));
 
 require('./config/database').run();
 require('./config/express')(app);
+
+
+app.use(express.static(__dirname + '/public'));
+app.set('views', __dirname + '/public/views');
+
 
 app.post('/v1/api/login', routes.login);
 app.post('/v1/api/signup', routes.signup);

@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <!--Sidebar content-->
+            <div>
+                Search : <input ng-model="query" class="form-control"> <br>
+            </div>
+            <!-- Filter -->
+            <div>
+                Sort by :
+                <select ng-model="orderProp" style="min-width: 70%;">
+                    <option value="title">Alphabet</option>
+                    <option value="date">Newest</option>
+                </select>
+                <hr/>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <!--Body content-->
+            <ul class="phones">
+                <li ng-repeat="review in reviews | filter:query | orderBy:orderProp" class="thumbnail">
+                    <a href="#/reviews/{{review.id}}" class="thumb"><img ng-src="{{review.imageUrl}}"></a>
+                    <a href="#/reviews/{{review.id}}">{{review.title}}</a>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. .</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div>
+</div>

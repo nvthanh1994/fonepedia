@@ -2,7 +2,7 @@ module.exports = function (req, res) {
   var connection = require('./../../config/database').connection;
   var id = req.params.id;
   connection.query(
-    'SELECT * FROM Brand WHERE id="' + id + '"',
+    'SELECT * FROM phone WHERE brand="' + id + '"',
     function (err, rows, fields) {
       if (err) {
         res.json({error_code : 1, msg : err.toString()});
@@ -15,4 +15,4 @@ module.exports = function (req, res) {
       res.json({error_code : 1, msg : 'Brand is not exist'});
     }
   );
-}
+};
