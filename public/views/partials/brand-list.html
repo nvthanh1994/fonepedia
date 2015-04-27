@@ -10,7 +10,7 @@
                 Sort by :
                 <select ng-model="orderProp" style="min-width: 70%;">
                     <option value="name">Alphabet</option>
-                    <option value="count">No of phone</option>
+                    <option value="numberOfPhone">No of phone</option>
                 </select>
                 <hr/>
             </div>
@@ -24,10 +24,10 @@
             <div class="col-md-5">
                 <ul>
                     <li ng-repeat="brand in brands.brand | filter:query | orderBy:orderProp">
-                        <a href="#/brands/{{brand.id}}" ><img ng-src="./img/logo/{{brand.logoUrl}}" style="float:left;"></a>
-                        <a href="#/brands/{{brand.id}}" style="float: right;" class="text-info"><b>{{brand.name}} ({{brand.count}})</b></a>
+                        <a href="#/brands/{{brand.brand_id}}" ><img ng-src="./img/logo/{{brand.logoUrl}}" style="float:left;"></a>
+                        <a href="#/brands/{{brand.brand_id}}" style="float: right;" class="text-info"><b>{{brand.brand_name}} ({{brand.numberOfPhone}})</b></a>
                         <p class="text-center"> {{brand.slogan}}</p>
-                        <a href="#/brands/{{brand.id}}"><hr style="border: 2px solid rgba(6, 7, 176, 0.66);"></a>
+                        <a href="#/brands/{{brand.brand_id}}"><hr style="border: 2px solid rgba(6, 7, 176, 0.66);"></a>
                     </li>
                 </ul>
             </div>
@@ -35,10 +35,10 @@
             <div class="col-md-5">
                 <ul>
                     <li ng-repeat="brand in brands.brand | filter:query | orderBy:orderProp">
-                        <a href="#/brands/{{brand.id}}" ><img ng-src="./img/logo/{{brand.logoUrl}}" style="float:left;"></a>
-                        <a href="#/brands/{{brand.id}}" style="float: right;" class="text-info"><b>{{brand.name}} ({{brand.count}})</b></a>
+                        <a href="#/brands/{{brand.brand_id}}" ><img ng-src="./img/logo/{{brand.logoUrl}}" style="float:left;"></a>
+                        <a href="#/brands/{{brand.brand_id}}" style="float: right;" class="text-info"><b>{{brand.brand_name}} ({{brand.numberOfPhone}})</b></a>
                         <p class="text-center"> {{brand.slogan}}</p>
-                        <a href="#/brands/{{brand.id}}"><hr style="border: 2px solid rgba(6, 7, 176, 0.66);"></a>
+                        <a href="#/brands/{{brand.brand_id}}"><hr style="border: 2px solid rgba(6, 7, 176, 0.66);"></a>
                     </li>
                 </ul>
             </div>

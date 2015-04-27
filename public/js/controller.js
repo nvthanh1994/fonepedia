@@ -7,30 +7,67 @@ myAppCtrl.controller('HomeCtrl', ['$scope', function ($scope) {
     // Load ra 10 lastest phones
 }]);
 
-myAppCtrl.controller('PhoneListCtrl', ['$scope','Phone', function ($scope, Phone) {
-    $scope.orderProp = 'name';
-    $scope.phones = Phone.query();
+
+myAppCtrl.controller('BrandListCtrl',['$scope','Brand',function($scope,Brand){
+    Brand.query().$promise.then(function(res){
+        $scope.brands = res;
+        console.log($scope.brands.error_code);
+        console.log($scope.brands.brand);
+    });
+    $scope.orderProp='name';
 }]);
 
-myAppCtrl.controller('PhoneDetailCtrl', ['$scope','$routeParams', 'Phone',  function ($scope, $routeParams, Phone) {
-    $scope.phone = Phone.get({phoneId : $routeParams.phoneId},function(phone){
-        console.log("Get ok !");
+myAppCtrl.controller('BrandDetailCtrl',['$scope','$routeParams', 'Brand',function($scope,$routeParams,Brand){
+    $scope.brandphones = Brand.get({brandId : $routeParams.brandId},function(brand){
+        console.log('Get brand detail ok!');
+    })
+
+}]);
+
+myAppCtrl.controller('PhoneListCtrl', ['$scope', 'Phone', 'Brand', function ($scope, Phone, Brand) {
+    $scope.orderProp = 'name';
+    $scope.phones = Phone.query();
+    $scope.brands = Brand.query();
+}]);
+
+myAppCtrl.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone', 'Brand', function ($scope, $routeParams, Phone, Brand) {
+    Phone.get({phoneId: $routeParams.phoneId}).$promise.then(function(res){
+        $scope.phone = res.phone;
+
+
+        $scope.phone.imagesUrl = [2];
+        for(var i=0;i<=1;i++){
+            $scope.phone.imagesUrl[i] = './img/phones/'+$scope.phone.phone_id+'/'+i+'.jpg';
+        }
+        console.log($scope.phone);
     });
+    $scope.info = 'Phone Detail Ctrl';
+    $scope.brands = Brand.query();
+}]);
+
+myAppCtrl.controller('ReviewListCtrl', ['$scope', 'Review', function ($scope, Review) {
+    console.log("Here");
+    $scope.orderProp='title';
+    $scope.info = "At review list";
+    $scope.reviews = Review.query();
+}]);
+
+myAppCtrl.controller('ReviewDetailCtrl', ['$scope', 'Review', '$routeParams', function ($scope, Review, $routeParams) {
+    $scope.info = "At review detail";
 }]);
 
 
 // Craft :v.
 myAppCtrl.controller('AdminCtrl', ['$scope', function ($scope) {
     $scope.user = {
-        username : "",
-        password : ""
+        username: "",
+        password: ""
     }
     $scope.logined = false;
-    $scope.login = function(user){
-        if(user.username==="" && user.password===""){
+    $scope.login = function (user) {
+        if (user.username === "" && user.password === "") {
             //alert("You have logged in successfully!");
-            $scope.logined=true;
+            $scope.logined = true;
         }
     }
-
 }]);
