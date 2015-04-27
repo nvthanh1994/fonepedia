@@ -20,7 +20,13 @@ app.post('/v1/api/brand', routes.brand.create);
 app.get('/v1/api/brand', routes.brand.getAll);
 app.get('/v1/api/brand/:id', routes.brand.get);
 
+app.get('/v1/api/phone', routes.phone.getAll);
+app.get('/v1/api/phone/:id', routes.phone.get);
 app.post('/v1/api/phone', routes.phone.create);
+app.delete('/v1/api/phone/:id', routes.phone.delete);
+app.put('/v1/api/phone', routes.phone.update);
+
+
 
 var FRONTEND = ['/', '/group/:id', '/login', '/logout', '/config'];
 app.get(FRONTEND, function (req, res) {

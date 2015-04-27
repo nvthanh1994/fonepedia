@@ -1,8 +1,8 @@
 module.exports = function (req, res) {
   var connection = require('./../../config/database').connection;
-  var name = req.body.name;
+  var brand_name = req.body.brand_name;
   connection.query(
-    'SELECT * FROM Brand WHERE name="' + name + '"',
+    'SELECT * FROM Brand WHERE brand_name="' + brand_name + '"',
     function (err, rows, fields) {
       if (err) {
         res.json({error_code : 1, msg : err.toString()});
@@ -13,7 +13,7 @@ module.exports = function (req, res) {
         return;
       }
       connection.query(
-        'INSERT INTO Brand (name, numberOfPhone) VALUES ("' + name + '","' + 0 + '")',
+        'INSERT INTO Brand (brand_name, numberOfPhone) VALUES ("' + brand_name + '","' + 0 + '")',
         function (err, rows, fields) {
           console.log(err);
           res.json({error_code : 0});
