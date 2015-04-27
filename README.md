@@ -1,8 +1,10 @@
 ## Require
-Cài trước Bower, NPM
+Install bower, npm
 
 ## Install
-cd đến thư mục, $ npm start 
+bower install
+npm install
 
 ## Run
-localhost:8000/app
+nodemon server.js
+=> Go to localhost:8000 to test.
