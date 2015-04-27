@@ -20,8 +20,8 @@ myAppCtrl.controller('BrandListCtrl',['$scope','Brand',function($scope,Brand){
 myAppCtrl.controller('BrandDetailCtrl',['$scope','$routeParams', 'Brand',function($scope,$routeParams,Brand){
     $scope.brandphones = Brand.get({brandId : $routeParams.brandId},function(brand){
         console.log('Get brand detail ok!');
+        console.log($scope.brandphones);
     })
-
 }]);
 
 myAppCtrl.controller('PhoneListCtrl', ['$scope', 'Phone', 'Brand', function ($scope, Phone, Brand) {
@@ -33,13 +33,14 @@ myAppCtrl.controller('PhoneListCtrl', ['$scope', 'Phone', 'Brand', function ($sc
 myAppCtrl.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone', 'Brand', function ($scope, $routeParams, Phone, Brand) {
     Phone.get({phoneId: $routeParams.phoneId}).$promise.then(function(res){
         $scope.phone = res.phone;
-
+        console.log($scope.phone);
 
         $scope.phone.imagesUrl = [2];
         for(var i=0;i<=1;i++){
             $scope.phone.imagesUrl[i] = './img/phones/'+$scope.phone.phone_id+'/'+i+'.jpg';
         }
-        console.log($scope.phone);
+
+
     });
     $scope.info = 'Phone Detail Ctrl';
     $scope.brands = Brand.query();

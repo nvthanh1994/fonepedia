@@ -9,7 +9,7 @@ module.exports = function (req, res) {
         return;
       }
       if (rows.length !== 0) {
-        res.json({error_code : 0, brand : rows[0]});
+        res.json({error_code: 0, phones: rows});
         return;
       }
       res.json({error_code : 1, msg : 'Brand is not exist'});
