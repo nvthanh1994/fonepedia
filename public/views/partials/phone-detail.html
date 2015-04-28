@@ -17,7 +17,9 @@
             <div class="col-md-4">
                 <img ng-src="{{phone.imagesUrl[0]}}" alt="./img/phones/default.png" class="phone" ng-show="phone.imagesUrl[0]"/>
                 <img src="./img/phones/default.png" alt="" ng-hide="phone.imagesUrl[0]"/>
+
                 <p class="text-info">Number of Like (votes)</p>
+
                 <p class="text-info">Review (phone.review_name)</p>
             </div>
             <div class="col-md-8">
@@ -42,7 +44,7 @@
                     <!-- Body-->
                     <table cellspacing="0">
                         <tr>
-                            <th rowspan="3" scope="row">Body </th>
+                            <th rowspan="3" scope="row">Body</th>
                             <td class="ttl">Dimmension</td>
                             <td class="nfo">{{phone.body_dimmension}}</td>
                         </tr>
@@ -58,7 +60,7 @@
                     <!-- Display-->
                     <table cellspacing="0">
                         <tr>
-                            <th rowspan="3" scope="row">Display </th>
+                            <th rowspan="3" scope="row">Display</th>
                             <td class="ttl">Type</td>
                             <td class="nfo">{{phone.display_type}}</td>
                         </tr>
@@ -75,7 +77,7 @@
                     <!-- Sound -->
                     <table cellspacing="0">
                         <tr>
-                            <th rowspan="3" scope="row">Sound </th>
+                            <th rowspan="3" scope="row">Sound</th>
                             <td class="ttl">Alert Types</td>
                             <td class="nfo">{{phone.sound_alert}}</td>
                         </tr>

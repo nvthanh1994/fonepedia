@@ -58,7 +58,6 @@ ul.phone-thumbs img:hover {
     cursor: pointer;
 }
 
-
 ul.specs {
     clear: both;
     margin: 0;
@@ -66,13 +65,13 @@ ul.specs {
     list-style: none;
 }
 
-ul.specs > li{
+ul.specs > li {
     display: inline-block;
     width: 200px;
     vertical-align: top;
 }
 
-ul.specs > li > span{
+ul.specs > li > span {
     font-weight: bold;
     font-size: 1.2em;
 }
@@ -84,38 +83,44 @@ ul.specs dt {
 h1 {
     border-bottom: 1px solid gray;
 }
+
 /*-----------------------------------------*/
-
-
 
 /*-----------------Phone Detail --------*/
 #specs-list {
     border-bottom: 9px solid #FFFFFF;
 }
+
 #specs-list p {
     background: none repeat scroll 0 0 #F6F6F6;
     font-size: 12px;
     padding: 4px 6px;
 }
+
 #specs-list p a {
     color: #7D7464;
     text-decoration: underline;
 }
+
 #non-gsm p {
     color: #4B3C23;
     font-weight: bold;
 }
+
 #specs-list table {
     border-top: 1px solid #E3E3E3;
 }
+
 #specs-list caption {
     display: none;
 }
+
 #specs-list th, #specs-list td {
     font: 12px Arial;
     padding: 1px 6px;
     vertical-align: top;
 }
+
 #specs-list th {
     background: none repeat scroll 0 0 #F6F6F6;
     border-right: medium none;
@@ -124,63 +129,72 @@ h1 {
     text-transform: uppercase;
     width: 120px;
 }
+
 #specs-list td {
     background: none repeat scroll 0 0 #FAFAFA;
     border-bottom: 1px solid #f0f0f0;
     line-height: 20px;
 }
+
 #specs-list td.ttl {
     color: #7D7464;
     font-weight: bold;
     width: 110px;
 }
+
 #specs-list tr:last-child td {
     border-bottom: medium none;
 }
+
 #specs-list td.ttl a {
     color: #7D7464;
 }
+
 #specs-list td.nfo ul {
     margin-left: 16px;
 }
+
 #specs-list td.nfo a {
     color: #b23f33;
     text-decoration: underline;
 }
+
 #specs-list td.nfo a.noUnd {
     color: #000000;
     text-decoration: none;
 }
+
 #specs-list td.nfo a.noUnd:hover {
     color: #F04F40;
     text-decoration: underline;
 }
+
 #specs-list td.nfo li {
     list-style-type: disc;
     padding: 1px 0;
 }
 
-#specs-list .tr-hover td { top:0; transition: all 0.15s ease-out}
+#specs-list .tr-hover td {
+    top: 0;
+    transition: all 0.15s ease-out
+}
+
 #specs-list .tr-hover:hover td {
     padding-bottom: 1px;
     padding-top: 1px;
     position: relative;
-    box-shadow: 1px 1px 1px rgba(0,0,0,.31) ;
-}
-#specs-list .tr-hover:hover td.ttl {
-    box-shadow: 0px 1px 1px rgba(0,0,0,.31) ;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, .31);
 }
 
-#specs-list td.nfo{
+#specs-list .tr-hover:hover td.ttl {
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, .31);
+}
+
+#specs-list td.nfo {
     width: 320px;
 }
 
-
-
-
 /*--------------------------------------*/
-
-
 
 /* Footer
 -------------------------------------------------- */
@@ -188,10 +202,12 @@ html {
     position: relative;
     min-height: 100%;
 }
+
 body {
     margin-bottom: 40px;
-    margin-top : 70px;
+    margin-top: 70px;
 }
+
 .footer {
     position: absolute;
     bottom: 0;
@@ -200,6 +216,7 @@ body {
     height: 40px;
     background-color: #9632e5;
 }
+
 /*---------------------------------------------------*/
 
 /* Two columns */

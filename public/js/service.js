@@ -5,12 +5,12 @@
 var myAppServices = angular.module('myAppServices', ['ngResource']);        // Services Module
 
 // Brand Service
-myAppServices.factory('Brand',['$resource',function($resource){
-    return $resource('v1/api/brand/:brandId',{},{
-        query : {
-            method : 'GET',
-            params : {
-                brandId : ''
+myAppServices.factory('Brand', ['$resource', function ($resource) {
+    return $resource('v1/api/brand/:brandId', {}, {
+        query: {
+            method: 'GET',
+            params: {
+                brandId: ''
             }
         }
     });
@@ -41,6 +41,19 @@ myAppServices.factory('Review', ['$resource', function ($resource) {
     });
 }]);
 
-myAppServices.factory('AuthService', ['$scope', function ($scope) {
-
+myAppServices.factory('StorageService', ['$rootScope', function ($rootScope) {
+    return {
+        get: function (key) {
+            return localStorage.getItem(key);
+        },
+        save: function (key, data) {
+            localStorage.setItem(key, JSON.stringify(data));
+        },
+        remove: function (key) {
+            localStorage.removeItem(key);
+        },
+        clearAll: function () {
+            localStorage.clear();
+        }
+    }
 }]);
