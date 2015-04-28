@@ -8,11 +8,10 @@
         </div>
         <div class="col-md-9">
             <div class="row">
-                <a href="#/brands/{{phone.brand_id}}"><img ng-src="./img/logo/{{phone.logoUrl}}" alt="No logo found" style="float:left;"/></a>
-                <a href="#/brands/{{phone.brand_id}}"><h5 style="float:right;" class="text-primary">{{phone.brand_name}}</h5></a>
-
-                <br>
-                <hr style="border: 2px solid rgba(192, 6, 74, 0.66);">
+                <a href="#/brands/{{phone.brand_id}}"><h5 class="text-primary" style="float:left;">{{phone.phone_name}}</h5></a>
+                <a href="#/brands/{{phone.brand_id}}"><img ng-src="./img/logo/{{phone.logoUrl}}" style="float:right;" alt="No logo found" class="img-thumbnail"/></a>
+                <br/>
+                <hr style="border: 2px solid rgba(192, 47, 137, 0.66);">
             </div>
             <div class="col-md-4">
                 <img ng-src="{{phone.imagesUrl[0]}}" alt="./img/phones/default.png" class="phone" ng-show="phone.imagesUrl[0]"/>
@@ -29,15 +28,15 @@
                         <tr>
                             <th rowspan="3" scope="row">General</th>
                             <td class="ttl">Network</td>
-                            <td class="nfo">{{phone.network}}</td>
+                            <td class="nfo">{{phone.general_network}}</td>
                         </tr>
                         <tr>
                             <td class="ttl">Announced</td>
-                            <td class="nfo">{{phone.announced}}</td>
+                            <td class="nfo">{{phone.general_announced}}</td>
                         </tr>
                         <tr>
                             <td class="ttl">Status</td>
-                            <td class="nfo">{{phone.status}}</td>
+                            <td class="nfo">{{phone.general_status}}</td>
                         </tr>
                     </table>
 
@@ -46,7 +45,7 @@
                         <tr>
                             <th rowspan="3" scope="row">Body</th>
                             <td class="ttl">Dimmension</td>
-                            <td class="nfo">{{phone.body_dimmension}}</td>
+                            <td class="nfo">{{phone.body_dim}}</td>
                         </tr>
                         <tr>
                             <td class="ttl">Weight</td>
@@ -70,7 +69,7 @@
                         </tr>
                         <tr>
                             <td class="ttl">Multitouch</td>
-                            <td class="nfo">Yes</td>
+                            <td class="nfo">{{phone.display_multitouch}}</td>
                         </tr>
                     </table>
 
@@ -79,7 +78,7 @@
                         <tr>
                             <th rowspan="3" scope="row">Sound</th>
                             <td class="ttl">Alert Types</td>
-                            <td class="nfo">{{phone.sound_alert}}</td>
+                            <td class="nfo">{{phone.sound_type}}</td>
                         </tr>
                         <tr>
                             <td class="ttl">Loudspeaker</td>
@@ -87,21 +86,115 @@
                         </tr>
                         <tr>
                             <td class="ttl">3.5mm jack</td>
-                            <td class="nfo">{{phone.jack}}</td>
+                            <td class="nfo">{{phone.sound_jack}}</td>
                         </tr>
                     </table>
 
-                    <p>Bla bla bla bla</p>
+                    <!-- Memory -->
+                    <table cellspacing="0">
+                        <tr>
+                            <th rowspan="2" scope="row">Memory</th>
+                            <td class="ttl">Card Slot</td>
+                            <td class="nfo">{{phone.memory_cardslot}}</td>
+                        </tr>
+                        <tr>
+                            <td class="ttl">Internal</td>
+                            <td class="nfo">{{phone.memory_internal}}</td>
+                        </tr>
+                    </table>
 
+                    <!-- Data  -->
+                    <table cellspacing="0">
+                        <tr>
+                            <th rowspan="4" scope="row">Data</th>
+                            <td class="ttl">Wlan</td>
+                            <td class="nfo">{{phone.data_wlan}}</td>
+                        </tr>
+                        <tr>
+                            <td class="ttl">Bluetooth</td>
+                            <td class="nfo">{{phone.data_bluetooth}}</td>
+                        </tr>
+                        <tr>
+                            <td class="ttl">USB</td>
+                            <td class="nfo">{{phone.data_usb}}</td>
+                        </tr>
+                        <tr>
+                            <td class="ttl">Other</td>
+                            <td class="nfo">{{phone.data_other}}</td>
+                        </tr>
+                    </table>
+
+                    <!-- Camera -->
+                    <table cellspacing="0">
+                        <tr>
+                            <th rowspan="4" scope="row">Camera</th>
+                            <td class="ttl">Primary</td>
+                            <td class="nfo">{{phone.camera_primary}}</td>
+                        </tr>
+                        <tr>
+                            <td class="ttl">Feature</td>
+                            <td class="nfo">{{phone.camera_feature}}</td>
+                        </tr>
+                        <tr>
+                            <td class="ttl">Video</td>
+                            <td class="nfo">{{phone.camera_video}}</td>
+                        </tr>
+                        <tr>
+                            <td class="ttl">Secondary</td>
+                            <td class="nfo">{{phone.camera_secondary}}</td>
+                        </tr>
+                    </table>
+
+                    <!-- Feature  -->
+                    <table cellspacing="0">
+                        <tr>
+                            <th rowspan="6" scope="row">Features</th>
+                            <td class="ttl">OS</td>
+                            <td class="nfo">{{phone.feature_os}}</td>
+                        </tr>
+                        <tr>
+                            <td class="ttl">Chipset</td>
+                            <td class="nfo">{{phone.feature_chipset}}</td>
+                        </tr>
+                        <tr>
+                            <td class="ttl">GPU</td>
+                            <td class="nfo">{{phone.feature_gpu}}</td>
+                        </tr>
+                        <tr>
+                            <td class="ttl">Sensors</td>
+                            <td class="nfo">{{phone.feature_sensors}}</td>
+                        </tr>
+                        <tr>
+                            <td class="ttl">Radio</td>
+                            <td class="nfo">{{phone.feature_radio}}</td>
+                        </tr>
+                        <tr>
+                            <td class="ttl">GPS</td>
+                            <td class="nfo">{{phone.feature_gps}}</td>
+                        </tr>
+
+                    </table>
+
+
+                    <!-- Battery -->
+                    <table cellspacing="0">
+                        <tr>
+                            <th rowspan="2" scope="row">Battery</th>
+                            <td class="ttl">Battery</td>
+                            <td class="nfo">{{phone.battery}}</td>
+                        </tr>
+                    </table>
+
+                    <!-- Price -->
+                    <table cellspacing="0">
+                        <tr>
+                            <th rowspan="1" scope="row">Price</th>
+                            <td class="ttl">Price</td>
+                            <td class="nfo">{{phone.price}}</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
-
-
         </div>
     </div>
-</div>
-
-
-<div class="container" align="center">
-    Facebook plugin bla bla bla bla
 </div>

@@ -18,16 +18,23 @@ myAppCtrl.controller('BrandListCtrl', ['$scope', 'Brand', function ($scope, Bran
 }]);
 
 myAppCtrl.controller('BrandDetailCtrl', ['$scope', '$routeParams', 'Brand', function ($scope, $routeParams, Brand) {
-    $scope.brandphones = Brand.get({brandId: $routeParams.brandId}, function (brand) {
-        console.log('Get brand detail ok!');
+    Brand.get({brandId: $routeParams.brandId}).$promise.then(function (res) {
+        $scope.brandphones = res.phones;
         console.log($scope.brandphones);
-    })
+        for (var i = 0; i < $scope.brandphones.length; i++) {
+            $scope.brandphones[i].imagesUrl = [2];
+            for (var j = 0; j <= 1; j++) {
+                //$scope.brandphones[i].imagesUrl[j] = './img/phones/' + $scope.brandphones[i].phone_id + '/' + j + '.jpg';
+                $scope.brandphones[i].imagesUrl[j] = './img/phones/default.png';
+            }
+        }
+    });
 }]);
 
 myAppCtrl.controller('PhoneListCtrl', ['$scope', 'Phone', 'Brand', function ($scope, Phone, Brand) {
-    $scope.orderProp = 'name';
-    $scope.phones = Phone.query();
+    $scope.orderProp = 'phone_name';
     $scope.brands = Brand.query();
+    $scope.phones = Phone.query();
 }]);
 
 myAppCtrl.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone', 'Brand', function ($scope, $routeParams, Phone, Brand) {

@@ -27,7 +27,7 @@ body {
 img.phone {
     float: left;
     /*border: 3px solid #734180;*/
-    border: 5px outset rgba(57, 130, 255, 0.66);
+    border: 2px outset rgba(159, 161, 163, 0.66);
     margin-right: 3em;
     margin-bottom: 2em;
     background-color: white;
@@ -102,11 +102,6 @@ h1 {
     text-decoration: underline;
 }
 
-#non-gsm p {
-    color: #4B3C23;
-    font-weight: bold;
-}
-
 #specs-list table {
     border-top: 1px solid #E3E3E3;
 }
@@ -124,7 +119,7 @@ h1 {
 #specs-list th {
     background: none repeat scroll 0 0 #F6F6F6;
     border-right: medium none;
-    color: #B23F33;
+    color: #0e09b2;
     font: 15px Oswald;
     text-transform: uppercase;
     width: 120px;
@@ -155,7 +150,7 @@ h1 {
 }
 
 #specs-list td.nfo a {
-    color: #b23f33;
+    color: #0e12b2;
     text-decoration: underline;
 }
 
@@ -165,7 +160,7 @@ h1 {
 }
 
 #specs-list td.nfo a.noUnd:hover {
-    color: #F04F40;
+    color: #161ff0;
     text-decoration: underline;
 }
 
@@ -227,4 +222,52 @@ body {
     -webkit-column-gap: 10.5em;
     column-count: 2;
     column-gap: 10.5em;
+}
+
+.makers li {
+    float: left;
+    height: 320px;
+    position: relative;
+    text-align: center;
+    width: 190px;
+    list-style: none;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.makers a {
+    background: none repeat scroll 0 0 #F1EFEF;
+    display: block;
+    margin: auto;
+    padding-top: 10px;
+    text-align: center;
+    text-decoration: none;
+    width: 190px;
+}
+
+.makers img {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #D9CDCC;
+    clear: both;
+    height: 220px;
+    margin: 0 auto 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    width: 190px;
+}
+
+.makers strong {
+    background: none repeat scroll 0 0 #F6F6F6 !important;
+    border-bottom: 1px solid #F0F0F0;
+    border-top: 1px solid #CCCCCC;
+    box-shadow: 0 -1px 0 #FFFFFF;
+    clear: both;
+    display: block;
+    font: 12px Arial;
+    margin: 1px auto 0;
+    padding: 3px 0 2px;
+    position: relative;
+    top: 1px;
+    min-height: 30px;
 }
