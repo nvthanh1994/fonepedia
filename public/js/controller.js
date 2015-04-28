@@ -10,11 +10,10 @@ myAppCtrl.controller('HomeCtrl', ['$scope', function ($scope) {
 
 myAppCtrl.controller('BrandListCtrl',['$scope','Brand',function($scope,Brand){
     Brand.query().$promise.then(function(res){
-        $scope.brands = res;
-        console.log($scope.brands.error_code);
-        console.log($scope.brands.brand);
+        $scope.brands = res.brand;
+        console.log($scope.brands);
     });
-    $scope.orderProp='name';
+    $scope.orderProp = 'brand_name';
 }]);
 
 myAppCtrl.controller('BrandDetailCtrl',['$scope','$routeParams', 'Brand',function($scope,$routeParams,Brand){
@@ -39,8 +38,6 @@ myAppCtrl.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone', 'Bra
         for(var i=0;i<=1;i++){
             $scope.phone.imagesUrl[i] = './img/phones/'+$scope.phone.phone_id+'/'+i+'.jpg';
         }
-
-
     });
     $scope.info = 'Phone Detail Ctrl';
     $scope.brands = Brand.query();

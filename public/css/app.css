@@ -201,3 +201,13 @@ body {
     background-color: #9632e5;
 }
 /*---------------------------------------------------*/
+
+/* Two columns */
+.two-column {
+    -moz-column-count: 2;
+    -moz-column-gap: 10.5em;
+    -webkit-column-count: 2;
+    -webkit-column-gap: 10.5em;
+    column-count: 2;
+    column-gap: 10.5em;
+}

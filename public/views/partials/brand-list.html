@@ -1,51 +1,18 @@
 <div class="container">
-    <div class="row">
-        <div class="col-md-2">
-            <!--Sidebar content-->
-            <div>
-                Search : <input ng-model="query" class="form-control"> <br>
-            </div>
-            <!-- Filter -->
-            <div>
-                Sort by :
-                <select ng-model="orderProp" style="min-width: 70%;">
-                    <option value="name">Alphabet</option>
-                    <option value="numberOfPhone">No of phone</option>
-                </select>
-                <hr/>
-            </div>
-        </div>
+    <h4 class="text-primary">All Phone Manufacturers ({{brands.length}} brands)</h4>
+    <hr style="border: 2px solid rgba(203, 6, 76, 0.66);">
+    <br><br>
+    <ul class="two-column">
+        <li ng-repeat="brand in brands | filter:query | orderBy:orderProp">
+            <a href="#/brands/{{brand.brand_id}}"><img ng-src="./img/logo/{{brand.logoUrl}}" style="float:left;"></a>
+            <a href="#/brands/{{brand.brand_id}}" style="float: right;" class="text-info"><b>{{brand.brand_name}} ({{brand.numberOfPhone}})</b></a>
 
-        <div class="col-md-10 row">
-            <!--Body content-->
-            <h4 class="text-primary">All Phone Manufacturers</h4>
-            <hr style="border: 2px solid rgba(192, 6, 74, 0.66);">
-
-            <div class="col-md-5">
-                <ul>
-                    <li ng-repeat="brand in brands.brand | filter:query | orderBy:orderProp">
-                        <a href="#/brands/{{brand.brand_id}}" ><img ng-src="./img/logo/{{brand.logoUrl}}" style="float:left;"></a>
-                        <a href="#/brands/{{brand.brand_id}}" style="float: right;" class="text-info"><b>{{brand.brand_name}} ({{brand.numberOfPhone}})</b></a>
-                        <p class="text-center"> {{brand.slogan}}</p>
-                        <a href="#/brands/{{brand.brand_id}}"><hr style="border: 2px solid rgba(6, 7, 176, 0.66);"></a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="col-md-5">
-                <ul>
-                    <li ng-repeat="brand in brands.brand | filter:query | orderBy:orderProp">
-                        <a href="#/brands/{{brand.brand_id}}" ><img ng-src="./img/logo/{{brand.logoUrl}}" style="float:left;"></a>
-                        <a href="#/brands/{{brand.brand_id}}" style="float: right;" class="text-info"><b>{{brand.brand_name}} ({{brand.numberOfPhone}})</b></a>
-                        <p class="text-center"> {{brand.slogan}}</p>
-                        <a href="#/brands/{{brand.brand_id}}"><hr style="border: 2px solid rgba(6, 7, 176, 0.66);"></a>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<div>
+            <a href="#/brands/{{brand.brand_id}}">
+                <p class="text-center"> {{brand.slogan}}</p>
+            </a>
+            <a href="#/brands/{{brand.brand_id}}">
+                <hr style="border: 2px solid rgba(6, 7, 176, 0.66);">
+            </a>
+        </li>
+    </ul>
 </div>
