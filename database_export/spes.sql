@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 29, 2015 at 12:34 PM
+-- Generation Time: Apr 29, 2015 at 01:18 PM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `Spes` (
   `feature_gps` varchar(45) DEFAULT NULL,
   `battery` varchar(45) DEFAULT NULL,
   `price` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for dumped tables
@@ -70,7 +70,10 @@ CREATE TABLE IF NOT EXISTS `Spes` (
 --
 ALTER TABLE `Spes`
   ADD PRIMARY KEY (`spes_id`),
-  ADD KEY `brand_id_idx` (`brand_id`);
+  ADD KEY `brand_id_idx` (`brand_id`),
+  ADD KEY `phone_id` (`phone_id`),
+  ADD KEY `brand_id` (`brand_id`),
+  ADD KEY `brand_id_2` (`brand_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -80,7 +83,17 @@ ALTER TABLE `Spes`
 -- AUTO_INCREMENT for table `Spes`
 --
 ALTER TABLE `Spes`
-  MODIFY `spes_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+  MODIFY `spes_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `Spes`
+--
+ALTER TABLE `Spes`
+  ADD CONSTRAINT `Spes_ibfk_1` FOREIGN KEY (`phone_id`) REFERENCES `Phone` (`phone_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
