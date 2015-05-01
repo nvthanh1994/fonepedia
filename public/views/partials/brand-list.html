@@ -1,14 +1,13 @@
 <div class="container">
     <h4 class="text-primary">All Phone Manufacturers ({{brands.length}} brands)</h4>
     <hr style="border: 2px solid rgba(203, 6, 76, 0.66);">
-    <br><br>
+    <br/>
     <ul class="two-column">
         <li ng-repeat="brand in brands | filter:query | orderBy:orderProp">
             <a href="#/brands/{{brand.brand_id}}"><img ng-src="./img/logo/{{brand.logoUrl}}" style="float:left;"></a>
-            <a href="#/brands/{{brand.brand_id}}" style="float: right;" class="text-info"><b>{{brand.brand_name}} ({{brand.numberOfPhone}})</b></a>
-
+            <a href="#/brands/{{brand.brand_id}}" style="float: right;" class="text-info" title="Number of phones"> <p><i class="fa fa-check"></i> <b> {{brand.brand_name}} ({{ brand.numberOfPhone}})</b></p></a>
             <a href="#/brands/{{brand.brand_id}}">
-                <p class="text-center"> {{brand.slogan}}</p>
+                <div class=""><h5 class="text-center text-primary"><i class="fa fa-external-link-square"></i> {{brand.slogan}}</h5></div>
             </a>
             <a href="#/brands/{{brand.brand_id}}">
                 <hr style="border: 2px solid rgba(6, 7, 176, 0.66);">

@@ -37,17 +37,18 @@ var featuresOfSpes =
 module.exports = function (req, res) {
   var phone = req.body;
   var connection = require('./../../config/database').connection;
-  var query = '';
+
   connection.query(
     // ======= UPDATE PHONE NAME ==========
-
     'UPDATE Phone SET phone_name="' + phone.phone_name + '" ' +
-      'WHERE phone_id =' + phone.phone_id,
+      'WHERE phone_id ="' + phone.phone_id+'"',
     function (err, rows, fields) {
         if (err) {
           res.json({error_code: 1, msg: err.toString()});
+          console.log('Errr');
           return;
         }
+        //res.json({error_code: 0});
         async.waterfall([
           function (next) {
             // ======= UPDATE SPES ==========
@@ -61,7 +62,7 @@ module.exports = function (req, res) {
                 query += feature + '="' + phone[feature] + '" ';
               }
               if (++indexLoop === featuresOfSpes.length) {
-                query += 'WHERE phone_id = "' + phone.phone_id + '"';
+                query += 'WHERE phone_id ="' + phone.phone_id + '"';
                 next(null);
               }
             });

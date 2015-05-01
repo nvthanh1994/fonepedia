@@ -6,7 +6,7 @@ module.exports = function (req, res) {
         'FROM Phone ' +
         'JOIN (Spes JOIN Brand On Spes.brand_id = Brand.brand_id) ' +
         'ON Phone.phone_id = Spes.phone_id ' +
-        'WHERE Phone.phone_id = "' + phone_id + ' " ' +
+        'WHERE Phone.phone_id = "' + phone_id + '"' +
         'ORDER BY Phone.phone_id',
         function (err, rows, fields) {
             if (err) {

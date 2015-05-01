@@ -224,6 +224,15 @@ body {
     column-gap: 10.5em;
 }
 
+.three-column {
+    -moz-column-count: 3;
+    -moz-column-gap: 2.5em;
+    -webkit-column-count: 3;
+    -webkit-column-gap: 2.5em;
+    column-count: 3;
+    column-gap: 2.5em;
+}
+
 .makers li {
     float: left;
     height: 320px;

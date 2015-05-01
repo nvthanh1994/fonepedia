@@ -5,7 +5,8 @@ var myApp = angular.module('myApp', [
     'ngRoute',
     'ngResource',
     'myAppCtrls',
-    'myAppServices'
+    'myAppServices',
+    'angucomplete'
 ]);
 myApp.config(['$routeProvider',
     function ($routeProvider) {
@@ -25,14 +26,12 @@ myApp.config(['$routeProvider',
                 controller: 'BrandDetailCtrl',
                 title: 'Brand Detail'
             }).
-            /*
              // PhoneListCtrl sử dụng cho chức năng Quick Search
              when('/phones', {		// list all fone and some filter (brand, specs, ...
              templateUrl: 'views/partials/phone-list.html',
              controller: 'PhoneListCtrl',
              title: 'All Phones'
              }).
-             */
             when('/phones/:phoneId', {		// fone detail
                 templateUrl: 'views/partials/phone-detail.html',
                 controller: 'PhoneDetailCtrl',
@@ -60,6 +59,11 @@ myApp.config(['$routeProvider',
                 templateUrl: 'views/partials/dashboard.html',
                 controller: 'DashboardCtrl',                 // Add news, reviews, ...
                 title: 'Admin Dashboard - Secret'
+            }).
+            when('/dashboard/phones',{
+               templateUrl : 'views/partials/dashboard-phone.html',
+                controller : 'DashboardCtrl',
+                title : 'Phone Management'
             }).
             otherwise({
                 redirectTo: '/'

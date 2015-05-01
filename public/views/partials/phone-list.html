@@ -3,14 +3,14 @@
         <div class="col-md-3">
             <!--Sidebar content-->
             <div>
-                Search : <input ng-model="query" class="form-control"> <br>
+                Search : <input ng-model="searchquery" class="form-control"> <br>
             </div>
             <!-- Filter -->
             <div>
                 Sort by :
                 <select ng-model="orderProp" style="min-width: 70%;">
-                    <option value="name">Alphabet</option>
-                    <option value="age">Newest</option>
+                    <option value="phone_name">Alphabet</option>
+                    <option value="general_status">Newest</option>
                 </select>
                 <hr/>
             </div>
@@ -23,16 +23,13 @@
         <div class="col-md-9">
             <!--Body content-->
             <ul class="phones">
-                <li ng-repeat="phone in phones | filter:query | orderBy:orderProp" class="thumbnail">
-                    <a href="#/phones/{{phone.id}}" class="thumb"><img ng-src="{{phone.imageUrl}}"></a>
-                    <a href="#/phones/{{phone.id}}">{{phone.name}}</a>
+                <li ng-repeat="phone in phones | filter:searchquery | orderBy:orderProp" class="thumbnail">
+                    <a href="#/phones/{{phone.phone_id}}" class="thumb"><img ng-src="{{phone.imagesUrl[0]}}"></a>
+                    <a href="#/phones/{{phone.phone_id}}">{{phone.phone_name}}</a>
 
-                    <p>{{phone.snippet}}</p>
+                    <p>{{phone.detail}} Some phone quick detail</p>
                 </li>
             </ul>
         </div>
     </div>
-</div>
-
-<div>
 </div>

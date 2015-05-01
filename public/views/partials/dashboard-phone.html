@@ -1,0 +1,133 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <!--Sidebar content-->
+            <div>
+                Search : <input ng-model="searchquery" class="form-control"> <br>
+            </div>
+            <!-- Filter -->
+            <div>
+                Sort by :
+                <select ng-model="orderProp" style="min-width: 70%;">
+                    <option selected value="phone_name">Alphabet</option>
+                    <option value="general_status">Newest</option>
+                </select>
+                <hr/>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-info text-muted" ng-click="loadPhone()">Show Phones</button>
+                <button class="btn btn-success text-muted" data-toggle="modal" data-target="#phoneCreateModal" ng-click="addPhone()">Add Phones</button>
+            </div>
+
+        </div>
+
+        <div class="col-md-9">
+            <!--Body content-->
+            <ul class="phones">
+                <li ng-repeat="phone in phones | filter:searchquery | orderBy:orderProp" class="thumbnail">
+                    <a href="#/phones/{{phone.phone_id}}" class="thumb"><img ng-src="{{phone.imagesUrl[0]}}"></a>
+                    <a href="#/phones/{{phone.phone_id}}">{{phone.phone_name}}</a>
+
+                    <p>{{phone.detail}} Some phone quick detail</p>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#phoneEditModal" ng-click="changePhone(phone)">Edit</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#phoneDeleteModal" ng-click="changePhone(phone)">Delete</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Create  Modal - Use form validation -->
+        <div class="modal fade" id="phoneCreateModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Create new phone. Enter the spes : </h4>
+                        <hr/>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="createPhone()">CREATE</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit  Modal -->
+        <div class="modal fade" id="phoneEditModal" role="dialog">
+            <div class="modal-dialog  custom-class">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Edit {{currentPhone.phone_id}} detail</h4>
+                        <hr/>
+                    </div>
+                    <div class="modal-body">
+                        <!--<p>{{currentPhone | json}}</p>-->
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">phone_id:</label>
+
+                                <div class="col-sm-8">
+                                    <input class="form-control" ng-model="currentPhone.phone_id" disabled>
+                                </div>
+                            </div>
+                        </form>
+                        <form class="form-horizontal" role="form" ng-repeat="(key,value) in currentPhone"
+                              ng-show="key!='phone_id' && key!='spes_id' && key!='slogan' && key!='logoUrl' && key!='brand_name' && key!='numberOfPhone' && key!='imagesUrl' ">
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">{{key}}:</label>
+
+                                <div class="col-sm-8">
+                                    <input class="form-control" ng-model="currentPhone[key]">
+                                </div>
+                            </div>
+                        </form>
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-10">
+                                <button type="submit" class="btn btn-default" ng-click="showInfo()">Show Info</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="editPhone()">EDIT</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete  Modal -->
+        <div class="modal fade" id="phoneDeleteModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Confirm Delete</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure to delete <span class="text-danger">{{currentPhone.phone_name}}</span> ? </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="deletePhone()">YES</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

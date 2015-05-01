@@ -1,0 +1,16 @@
+1. Hoàn thiện Dashboard // OK
+2. Thêm tính năng Search // http://angular-ui.github.io/bootstrap/ typeahead + v1/api/search/searchquery | limit 5 => return phone_name, imageUrl[0] // OK
+3. Hoàn thiện Home.html // dùng v1/apu/top/new, /top/hit => return top 10 phone(name, bla bla) // Mai
+4. Thêm Review/ Add review vào PhoneDetail // Mai
+5. Thêm Gallery view vào Phone Detail, thêm Like, Review mapping vào Phone Detail // Mai
+6. Thêm vào hiệu ứng // Tuan sau
+7. Thêm CSDL // Tuan sau
+
+
+CSDL :
+1. Bảng USER => Không có gì
+2. Bảng Brand => Chứa ds các Brand(id,name,info)
+3. Bảng Phone(phone_id(pk))
+4. Bảng Spes(phone_id(fk))
+Khi bảng Phone change thông tin thì bảng Spes cũng thay đổi thông tin phone_id tương ứng nhờ cơ chế fk
+Khi bảng Brand change thông tin thì bảng Spes cũng thay đổi thông tin dựa vào cơ chế fk
