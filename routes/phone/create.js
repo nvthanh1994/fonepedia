@@ -38,7 +38,7 @@ module.exports = function (req, res) {
   var phone = req.body;
   var connection = require('./../../config/database').connection;
   connection.query(
-    'SELECT * FROM Phone WHERE phone_name="' + phone.name + '"',
+    'SELECT * FROM Phone WHERE phone_id="' + phone.phone_id + '"',
     function (err, rows, fields) {
       if (err) {
         res.json({error_code: 1, msg: err.toString()});
@@ -53,8 +53,8 @@ module.exports = function (req, res) {
 
         function (next) {
           connection.query(
-            'INSERT INTO Phone (phone_name)' +
-              'VALUES ("' + phone.phone_name + '")',
+            'INSERT INTO Phone (phone_name, phone_id)' +
+              'VALUES ("' + phone.phone_name + '","' + phone.phone_id + '")',
             function (err2, rows2, fields2) {
                 if (err2) {
                   res.json({error_code: 1, msg: err.toString()});
@@ -62,15 +62,15 @@ module.exports = function (req, res) {
                   return;
                 }
                 console.log(rows2);
-                next(null, rows2.insertId);
+                next(null);
                 return;
               }
           );
         },
 
-        function (phone_id, next) {
+        function (next) {
           query = 'INSERT INTO Spes (phone_id';
-          values = 'VALUES ("' + phone_id + '"';
+          values = 'VALUES ("' + phone.phone_id + '"';
           var indexLoop = 0;
           featuresOfSpes.forEach(function (feature) {
             if (phone[feature]) {

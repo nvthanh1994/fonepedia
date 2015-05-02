@@ -3,7 +3,7 @@ exports.run = function () {
     var connection = mysql.createConnection({
         host: 'localhost',
         user: 'root',
-        password: '12345',
+        // password: '12345',
         database: 'fonepedia'
     });
     connection.connect();
