@@ -41,6 +41,7 @@ module.exports = function (req, res) {
     'SELECT * FROM Phone WHERE phone_id="' + phone.phone_id + '"',
     function (err, rows, fields) {
       if (err) {
+        console.log('error when select phone');
         res.json({error_code: 1, msg: err.toString()});
         return;
       }
@@ -48,7 +49,7 @@ module.exports = function (req, res) {
         res.json({error_code: 1, msg: 'This phone is already exist'});
         return;
       }
-      res.json({error_code:100}); //ok
+      // res.json({error_code:100}); //ok
       var query = '', values = '';
       async.waterfall([
         function (next) {
@@ -58,7 +59,6 @@ module.exports = function (req, res) {
             function (err2, rows2, fields2) {
                 if (err2) {
                   res.json({error_code: 1, msg: err.toString()});
-                  next(null);
                   return;
                 }
                 console.log(rows2);
@@ -91,6 +91,7 @@ module.exports = function (req, res) {
             query + values,
             function (err, rows, fields) {
               if (err) {
+                console.log(err);
                 res.json({error_code: 1, msg: err.toString()});
                 return;
               }
@@ -103,6 +104,7 @@ module.exports = function (req, res) {
                       console.log(err2);
                       res.json({error_code : 1, msg : err.toString()});
                       next(null);
+                      return;
                     }
                     res.json({error_code : 0});
                     next(null);

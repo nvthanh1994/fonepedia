@@ -73,7 +73,8 @@ Cache-Control: no-cache
 
 ```
 {
-  "brand_name" : "HTC"
+  "brand_id" : "apple",
+  "brand_name" : "Apple"
 }
 ```
 

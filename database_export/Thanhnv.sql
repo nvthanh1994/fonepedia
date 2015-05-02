@@ -19,10 +19,10 @@
 -- Table structure for table `brand`
 --
 
-DROP TABLE IF EXISTS `brand`;
+DROP TABLE IF EXISTS `Brand`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `brand` (
+CREATE TABLE `Brand` (
   `brand_id` varchar(45) NOT NULL,
   `brand_name` varchar(45) DEFAULT NULL,
   `numberOfPhone` int(11) DEFAULT NULL,
@@ -36,10 +36,10 @@ CREATE TABLE `brand` (
 -- Table structure for table `phone`
 --
 
-DROP TABLE IF EXISTS `phone`;
+DROP TABLE IF EXISTS `Phone`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `phone` (
+CREATE TABLE `Phone` (
   `phone_id` varchar(45) NOT NULL,
   `phone_name` varchar(45) NOT NULL,
   `brand_id` varchar(45) DEFAULT NULL,
@@ -49,15 +49,9 @@ CREATE TABLE `phone` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `spes`
---
 
-DROP TABLE IF EXISTS `spes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `spes` (
-  `spes_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `Spes` (
+  `spes_id` int(11) NOT NULL,
   `brand_id` varchar(45) DEFAULT NULL,
   `phone_id` varchar(45) DEFAULT NULL,
   `general_network` varchar(100) DEFAULT NULL,
@@ -88,22 +82,46 @@ CREATE TABLE `spes` (
   `feature_radio` varchar(100) DEFAULT NULL,
   `feature_gps` varchar(100) DEFAULT NULL,
   `battery` varchar(100) DEFAULT NULL,
-  `price` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`spes_id`),
-  KEY `brand_id_idx` (`brand_id`),
-  KEY `phone_id_idx` (`phone_id`),
-  CONSTRAINT `phone_id` FOREIGN KEY (`phone_id`) REFERENCES `phone` (`phone_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `price` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
--- Table structure for table `user`
+-- Indexes for dumped tables
 --
 
-DROP TABLE IF EXISTS `user`;
+--
+-- Indexes for table `Spes`
+--
+ALTER TABLE `Spes`
+  ADD PRIMARY KEY (`spes_id`),
+  ADD KEY `brand_id_idx` (`brand_id`),
+  ADD KEY `phone_id_idx` (`phone_id`),
+  ADD KEY `phone_id` (`phone_id`),
+  ADD KEY `phone_id_2` (`phone_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `Spes`
+--
+ALTER TABLE `Spes`
+  MODIFY `spes_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `Spes`
+--
+ALTER TABLE `Spes`
+  ADD CONSTRAINT `Spes_ibfk_1` FOREIGN KEY (`phone_id`) REFERENCES `Phone` (`phone_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+DROP TABLE IF EXISTS `User`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user` (
+CREATE TABLE `User` (
   `username` varchar(45) NOT NULL,
   `password` varchar(100) NOT NULL,
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
