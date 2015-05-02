@@ -48,9 +48,9 @@ module.exports = function (req, res) {
         res.json({error_code: 1, msg: 'This phone is already exist'});
         return;
       }
+      res.json({error_code:100}); //ok
       var query = '', values = '';
       async.waterfall([
-
         function (next) {
           connection.query(
             'INSERT INTO Phone (phone_name, phone_id)' +

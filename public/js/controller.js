@@ -78,11 +78,12 @@ myAppCtrl.controller('ReviewDetailCtrl', ['$scope', 'Review', '$routeParams', fu
 
 
 // Craft :v.
-myAppCtrl.controller('DashboardCtrl', ['Phone','$route', '$timeout', '$scope', '$http', 'StorageService', '$location', function (Phone,$route, $timeout, $scope, $http, StorageService, $location) {
+myAppCtrl.controller('DashboardCtrl', ['Phone', '$route', '$timeout', '$scope', '$http', 'StorageService', '$location', function (Phone, $route, $timeout, $scope, $http, StorageService, $location) {
     $scope.user = {
         username: "",
         password: ""
     }
+    $scope.wrongUser = false;
 
     // Kiểm tra key isLogined trong localStorage
     if (StorageService.get('isLogined')) {
@@ -112,9 +113,11 @@ myAppCtrl.controller('DashboardCtrl', ['Phone','$route', '$timeout', '$scope', '
                 $scope.logined = true;
                 $scope.userInfo = JSON.parse(StorageService.get('currentUser'));
                 $location.path('dashboard');
+                $scope.wrongUser = false;
                 //console.log(data);
             }
             else {
+                $scope.wrongUser = true;
                 console.log('User doest not exist');
                 StorageService.save('isLogined', "0");
             }
@@ -132,7 +135,7 @@ myAppCtrl.controller('DashboardCtrl', ['Phone','$route', '$timeout', '$scope', '
         }, 100);
     }
 
-    $scope.loadPhone = function(){
+    $scope.loadPhone = function () {
         Phone.query().$promise.then(function (res) {
             $scope.phones = res.phone;
             for (var i = 0; i < $scope.phones.length; i++) {
@@ -142,21 +145,28 @@ myAppCtrl.controller('DashboardCtrl', ['Phone','$route', '$timeout', '$scope', '
                     $scope.phones[i].imagesUrl[j] = './img/phones/default.png';
                 }
             }
+            $scope.addphone = angular.copy($scope.phones[0]);
+            for (var key in $scope.addphone) {
+                if ($scope.addphone.hasOwnProperty(key)) {
+                    $scope.addphone[key] = null;
+                }
+            }
         });
     }
     $scope.currentPhone = {};
-    $scope.changePhone = function(phone){
+
+    $scope.changePhone = function (phone) {
         $scope.currentPhone = phone;
         console.log("Here, delete");
         console.log($scope.currentPhone);
     }
-    $scope.deletePhone = function(){
+    $scope.deletePhone = function () {
         console.log("Deleting" + $scope.currentPhone.phone_id);
         Phone.delete({phoneId: $scope.currentPhone.phone_id});
         $scope.loadPhone();     // Reload phonelist
     }
 
-    $scope.editPhone = function(){
+    $scope.editPhone = function () {
         console.log("Editing" + $scope.currentPhone.phone_id);
         $http.put('v1/api/phone', $scope.currentPhone).success(function (data, status, headers, config) {
             console.log("Put OK ");
@@ -165,15 +175,17 @@ myAppCtrl.controller('DashboardCtrl', ['Phone','$route', '$timeout', '$scope', '
         });
         $scope.loadPhone();     // Reload phonelist
     }
-    $scope.createPhone = function(){
-        console.log("Creating " + $scope.currentPhone.phone_id);
+
+    $scope.addPhone = function () {
+
     }
-    $scope.showInfo = function(){
-        alert(JSON.stringify($scope.currentPhone,null," \n "));
+    $scope.createPhone = function () {
+        console.log("Creating " + $scope.currentPhone);
+    }
+    $scope.showInfo = function (phone) {
+        alert(JSON.stringify(phone, null, " \n "));
         //console.log(JSON.stringify($scope.currentPhone,null," \n "));
     }
-
-
 
 
 }]);
