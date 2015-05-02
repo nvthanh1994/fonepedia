@@ -38,7 +38,7 @@ module.exports = function (req, res) {
   var phone = req.body;
   var connection = require('./../../config/database').connection;
   connection.query(
-    'SELECT * FROM Phone WHERE phone_name="' + phone.name + '"',
+    'SELECT * FROM Phone WHERE phone_id="' + phone.phone_id + '"',
     function (err, rows, fields) {
       if (err) {
         res.json({error_code: 1, msg: err.toString()});
@@ -48,9 +48,9 @@ module.exports = function (req, res) {
         res.json({error_code: 1, msg: 'This phone is already exist'});
         return;
       }
+      res.json({error_code:100}); //ok
       var query = '', values = '';
       async.waterfall([
-
         function (next) {
           connection.query(
             'INSERT INTO Phone (phone_name)' +

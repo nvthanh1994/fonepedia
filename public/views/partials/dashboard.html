@@ -33,6 +33,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <p ng-show="wrongUser" class="text-danger h6">Wrong Username or Password</p>
                                         <input type="submit" class="btn btn-md btn-primary btn-block" value="Sign in">
                                     </div>
                                 </div>
@@ -49,14 +50,17 @@
 <!--Phone Management-->
 <div class="container-fluid" ng-show="logined">
     <div class="col-md-2">
-        <li><p>Hi, {{userInfo}}</p></li>
-        <li><p><button class="btn btn-xs" ng-click="logout()">Log out</button></p></li>
+        <ul style="list-style: none;">
+            <li class="text-primary well text-center h6"><p>Hi, {{userInfo}}</p></li>
+            <li class="text-primary well text-center h6"><p><button class="btn btn-md btn-info" ng-click="logout()">Log out</button></p></li>
+        </ul>
     </div>
     <div class="col-md-10" id="content">
-        <ul>
-            <li class="text-primary"><a href="#/dashboard/phones">Phone Management</a></li>
-            <li class="text-primary"><a href="#/dashboard/brands">Brand Management</a></li>
-            <li>User Management</li>
+        <ul class="two-column">
+            <li class="text-primary well text-center h5"><a href="#/dashboard/phones"> <i class="fa fa-mobile"></i> Phone Management</a></li>
+            <li class="text-primary well text-center h5"><a href="#/dashboard/brands"><i class="fa fa-copyright"></i> Brand Management</a></li>
+            <li class="text-primary well text-center h5"><a href="#/dashboard/reviews"><i class="fa fa-newspaper-o"></i> Review Management</a></li>
+            <li class="text-primary well text-center h5"><a href=""><i class="fa fa-user"></i> User Management</a></li>
         </ul>
     </div>
 </div>
