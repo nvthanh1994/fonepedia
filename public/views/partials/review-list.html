@@ -9,8 +9,8 @@
             <div>
                 Sort by :
                 <select ng-model="orderProp" style="min-width: 70%;">
-                    <option value="title">Alphabet</option>
-                    <option value="date">Newest</option>
+                    <option value="review_title">Alphabet</option>
+                    <option value="review_date">Newest</option>
                 </select>
                 <hr/>
             </div>
@@ -20,10 +20,9 @@
             <!--Body content-->
             <ul class="phones">
                 <li ng-repeat="review in reviews | filter:query | orderBy:orderProp" class="thumbnail">
-                    <a href="#/reviews/{{review.id}}" class="thumb"><img ng-src="{{review.imageUrl}}"></a>
-                    <a href="#/reviews/{{review.id}}">{{review.title}}</a>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. .</p>
+                    <a href="#/reviews/{{review.phone_id}}" class="thumb"><img ng-src="{{review.imageUrl}}"></a>
+                    <a href="#/reviews/{{review.phone_id}}">{{review.review_title}}</a>
+                    <p>{{review.review_content | limitTo:100}}</p>
                 </li>
             </ul>
         </div>

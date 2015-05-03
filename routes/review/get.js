@@ -1,10 +1,10 @@
 module.exports = function (req, res) {
-  var review_id = req.params.id;
+  var phone_id = req.params.id;
   var connection = require('./../../config/database').connection;
   connection.query(
     'SELECT * ' +
       'FROM Review ' +
-      'WHERE review_id = "' + review_id + '"' +
+      'WHERE phone_id = "' + phone_id + '"' +
       'ORDER BY phone_id',
     function (err, rows, fields) {
         if (err) {
@@ -19,3 +19,4 @@ module.exports = function (req, res) {
       }
   );
 };
+// Get review tương ứng với phoneId

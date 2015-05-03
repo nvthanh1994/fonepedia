@@ -26,12 +26,12 @@ myApp.config(['$routeProvider',
                 controller: 'BrandDetailCtrl',
                 title: 'Brand Detail'
             }).
-             // PhoneListCtrl sử dụng cho chức năng Quick Search
-             when('/phones', {		// list all fone and some filter (brand, specs, ...
-             templateUrl: 'views/partials/phone-list.html',
-             controller: 'PhoneListCtrl',
-             title: 'All Phones'
-             }).
+            // PhoneListCtrl sử dụng cho chức năng Quick Search
+            when('/phones', {		// list all fone and some filter (brand, specs, ...
+                templateUrl: 'views/partials/phone-list.html',
+                controller: 'PhoneListCtrl',
+                title: 'All Phones'
+            }).
             when('/phones/:phoneId', {		// fone detail
                 templateUrl: 'views/partials/phone-detail.html',
                 controller: 'PhoneDetailCtrl',
@@ -60,14 +60,19 @@ myApp.config(['$routeProvider',
                 controller: 'DashboardCtrl',                 // Add news, reviews, ...
                 title: 'Admin Dashboard - Secret'
             }).
-            when('/dashboard/phones',{
-               templateUrl : 'views/partials/dashboard-phone.html',
+            when('/dashboard/phones', {
+                templateUrl: 'views/partials/dashboard-phone.html',
+                controller: 'DashboardCtrl',
+                title: 'Phone Management'
+            }).
+            when('/dashboard/reviews', {
+                templateUrl : 'views/partials/dashboard-review.html',
                 controller : 'DashboardCtrl',
-                title : 'Phone Management'
+                title : 'Review Management'
             }).
             otherwise({
-                redirectTo: '/'
-            });
+            redirectTo: '/'
+        });
         // $locationProvider.html5Mode(true);
     }
 

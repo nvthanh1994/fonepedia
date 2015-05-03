@@ -17,9 +17,9 @@
                 <img ng-src="{{phone.imagesUrl[0]}}" class="phone" ng-show="phone.imagesUrl[0]"/>
                 <img src="./img/phones/default.png" alt="" ng-hide="phone.imagesUrl[0]"/>
 
-                <p class="text-info">Number of Like (votes)</p>
+                <p class="text-info h5"><i class="fa fa-picture-o"></i> Images Gallery</p>
 
-                <p class="text-info">Review (phone.review_name)</p>
+                <p class="text-info h5"><i class="fa fa-newspaper-o"></i> <a href="#/reviews/{{review.phone_id}}">{{review.review_title}}</a></p>
             </div>
             <div class="col-md-8">
                 <div id="specs-list">

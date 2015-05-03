@@ -60,6 +60,6 @@ h2{color:#0b56a8;}
 /* Modal */
 @media screen and (min-width: 768px) {
     .custom-class {
-        width: 70%; /* either % (e.g. 60%) or px (400px) */
+        width: 90%; /* either % (e.g. 60%) or px (400px) */
     }
 }

@@ -30,13 +30,12 @@ myAppServices.factory('Phone', ['$resource', function ($resource) {
 
 // Review Services
 myAppServices.factory('Review', ['$resource', function ($resource) {
-    return $resource('reviews/:reviewId.json', {}, {
+    return $resource('v1/api/review/:reviewId', {}, {
         query: {
             method: 'GET',
             params: {
-                reviewId: 'all'
-            },
-            isArray: true
+                reviewId: ''
+            }
         }
     });
 }]);
