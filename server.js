@@ -26,15 +26,20 @@ app.post('/v1/api/phone', routes.phone.create);
 app.delete('/v1/api/phone/:id', routes.phone.delete);
 app.put('/v1/api/phone', routes.phone.update);
 
+app.post('/v1/api/review', routes.review.create);
+app.get('/v1/api/review', routes.review.getAll);
+app.get('/v1/api/review/:id', routes.review.get);
+app.delete('/v1/api/review/:id', routes.review.delete);
+app.put('/v1/api/review', routes.review.update);
 
 var FRONTEND = ['/', '/group/:id', '/login', '/logout', '/config'];
 app.get(FRONTEND, function (req, res) {
-    debug(req);
-    res.render('index.html');
+  debug(req);
+  res.render('index.html');
 });
 
 
 app.set('port', process.env.PORT || 8000);
 var server = app.listen(app.get('port'), function () {
-    console.log('Express server listening on port ' + server.address().port);
+  console.log('Express server listening on port ' + server.address().port);
 });

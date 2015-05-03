@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `Brand`;
 CREATE TABLE `Brand` (
   `brand_id` varchar(45) NOT NULL,
   `brand_name` varchar(45) DEFAULT NULL,
-  `numberOfPhone` int(11) DEFAULT NULL,
+  `numberOfPhone` int(11) DEFAULT 0,
   `logoUrl` varchar(200) DEFAULT NULL,
   `slogan` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`brand_id`)
@@ -118,6 +118,7 @@ ALTER TABLE `Spes`
 ALTER TABLE `Spes`
   ADD CONSTRAINT `Spes_ibfk_1` FOREIGN KEY (`phone_id`) REFERENCES `Phone` (`phone_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+
 DROP TABLE IF EXISTS `User`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -139,3 +140,22 @@ CREATE TABLE `User` (
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2015-05-02 21:35:28
+
+
+
+CREATE TABLE IF NOT EXISTS `Review` (
+  `review_id` int(10) NOT NULL,
+  `phone_id` varchar(45) DEFAULT NULL,
+  `review_title` varchar(100) DEFAULT NULL,
+  `review_content` longtext
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `Review`
+  ADD PRIMARY KEY (`review_id`),
+  ADD KEY `phone_id` (`phone_id`);
+
+ALTER TABLE `Review`
+  MODIFY `review_id` int(10) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `Review`
+  ADD CONSTRAINT `Review_ibfk_1` FOREIGN KEY (`phone_id`) REFERENCES `Phone` (`phone_id`) ON DELETE CASCADE ON UPDATE CASCADE;

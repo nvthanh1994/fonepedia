@@ -368,3 +368,133 @@ PUT http://localhost:6969/v1/api/phone
     "error_code": 0
 }
 ```
+
+### 11. Create review
+
+```
+POST http://localhost:8000/v1/api/review
+
+```
+
+##### Regex
+
+```
+{
+     "phone_id" : "iPhone5s-Apple",
+     "review_title" : "iPhone5s",
+     "review_content" : "4"
+}
+```
+
+##### Return
+
+```
+{
+    "error_code": 0
+}
+```
+
+
+### 12. Get all review
+
+```
+GET http://localhost:8000/v1/api/review
+
+```
+
+##### Regex
+
+```
+```
+
+##### Return
+
+```
+{
+    "error_code": 0,
+    "review": [
+        {
+            "review_id": 2,
+            "phone_id": "iPhone5s",
+            "review_title": "iPhone5s",
+            "review_content": "It is a good phone"
+        }
+    ]
+}
+```
+
+
+
+### 13. Get a review
+
+```
+GET http://localhost:8000/v1/api/review/2
+
+```
+
+##### Regex
+
+```
+```
+
+##### Return
+
+```
+{
+    "error_code": 0,
+    "review": {
+        "review_id": 2,
+        "phone_id": "iPhone5s",
+        "review_title": "iPhone5s",
+        "review_content": "It is a good phone"
+    }
+}
+```
+
+
+### 14. Delete a review
+
+```
+DELETE http://localhost:8000/v1/api/review/2
+
+```
+
+##### Regex
+
+```
+```
+
+##### Return
+
+```
+{
+    "error_code": 0
+}
+```
+
+
+### 15. Update a review
+
+```
+PUT http://localhost:8000/v1/api/review/2
+
+```
+
+##### Regex
+
+```
+{
+     "review_id" : "2",
+     "review_title" : "iPhone5s",
+     "review_content" : "4"
+}
+
+```
+
+##### Return
+
+```
+{
+    "error_code": 0
+}
+```
