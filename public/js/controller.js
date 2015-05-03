@@ -148,7 +148,7 @@ myAppCtrl.controller('DashboardCtrl', ['Phone', '$route', '$timeout', '$scope', 
             $scope.addphone = angular.copy($scope.phones[0]);
             for (var key in $scope.addphone) {
                 if ($scope.addphone.hasOwnProperty(key)) {
-                    $scope.addphone[key] = null;
+                    $scope.addphone[key] = '';
                 }
             }
         });
@@ -180,7 +180,13 @@ myAppCtrl.controller('DashboardCtrl', ['Phone', '$route', '$timeout', '$scope', 
 
     }
     $scope.createPhone = function () {
-        console.log("Creating " + $scope.currentPhone);
+        console.log("Creating " + $scope.addphone);
+        $http.post('v1/api/phone',$scope.addphone).success(function(data,status,headers,config){
+            console.log('Post OK');
+        }).error(function(data,status,headers,config){
+            console.log('Post error');
+        });
+        $scope.loadPhone();
     }
     $scope.showInfo = function (phone) {
         alert(JSON.stringify(phone, null, " \n "));

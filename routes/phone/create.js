@@ -49,7 +49,7 @@ module.exports = function (req, res) {
         res.json({error_code: 1, msg: 'This phone is already exist'});
         return;
       }
-      // res.json({error_code:100}); //ok
+      //res.json({error_code:100}); //ok
       var query = '', values = '';
       async.waterfall([
         function (next) {
@@ -66,7 +66,8 @@ module.exports = function (req, res) {
                 return;
               }
           );
-        },
+        }
+        ,
 
         function (next) {
           query = 'INSERT INTO Spes (phone_id';
@@ -87,30 +88,32 @@ module.exports = function (req, res) {
 
         function (next) {
           console.log(query, values);
+          //res.json({error_code : 100});
           connection.query(
-            query + values,
-            function (err, rows, fields) {
-              if (err) {
-                console.log(err);
-                res.json({error_code: 1, msg: err.toString()});
-                return;
-              }
-              connection.query(
-                'UPDATE Brand ' +
-                  'SET numberOfPhone = numberOfPhone + 1 ' +
-                  'WHERE brand_id = "' + phone.brand_id + '"',
-                function (err2, rows2, fields2) {
-                    if (err2) {
-                      console.log(err2);
-                      res.json({error_code : 1, msg : err.toString()});
+              query + values,
+              function (err, rows, fields) {
+                if (err) {
+                  console.log(err);
+                  res.json({error_code: 1, msg: err.toString()});
+                  return;
+                }
+                //res.json({error_code : 100});
+                connection.query(
+                    'UPDATE Brand ' +
+                    'SET numberOfPhone = numberOfPhone + 1 ' +
+                    'WHERE brand_id ="' + phone.brand_id+'"',
+                    function (err2, rows2, fields2) {
+                      if (err2) {
+                        console.log(err2);
+                        res.json({error_code : 1, msg : err.toString()});
+                        next(null);
+                        return;
+                      }
+                      res.json({error_code : 0});
                       next(null);
-                      return;
                     }
-                    res.json({error_code : 0});
-                    next(null);
-                  }
-              );
-            }
+                );
+              }
           );
         }], function (err) {
 
