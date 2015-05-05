@@ -498,3 +498,65 @@ PUT http://localhost:8000/v1/api/review/2
     "error_code": 0
 }
 ```
+
+
+### 16. Upload image
+
+```
+POST http://localhost:8000/v1/api/image
+
+form-data
+    image : file_input, type FILE
+    phone_id : phone_id, type TEXT
+
+```
+
+##### Regex
+
+```
+{
+    "error_code": 0,
+    "imageUrl": "http://localhost:8000/img/phones/1430797276985.jpeg"
+}
+
+```
+
+##### Return
+
+```
+{
+    "error_code": 0
+}
+```
+
+
+
+### 17. Get image of a phone
+
+```
+GET http://localhost:8000/v1/api/image/:phone_id
+
+eg: http://localhost:8000/v1/api/image/iPhone5s
+
+```
+
+##### Regex
+
+```
+
+```
+
+##### Return
+
+```
+{
+    "error_code": 0,
+    "images": [
+        {
+            "image_id": 1,
+            "imageUrl": "http://localhost:8000/img/phones/1430797276985.jpeg",
+            "phone_id": "iPhone5s"
+        }
+    ]
+}
+```

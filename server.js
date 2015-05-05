@@ -8,10 +8,8 @@ var app = express();
 require('./config/database').run();
 require('./config/express')(app);
 
-
 app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/public/views');
-
 
 app.post('/v1/api/login', routes.login);
 app.post('/v1/api/signup', routes.signup);
@@ -31,6 +29,9 @@ app.get('/v1/api/review', routes.review.getAll);
 app.get('/v1/api/review/:id', routes.review.get);
 app.delete('/v1/api/review/:id', routes.review.delete);
 app.put('/v1/api/review', routes.review.update);
+
+app.post('/v1/api/image', routes.image.create);
+app.get('/v1/api/image/:phone_id', routes.image.getAll);
 
 var FRONTEND = ['/', '/group/:id', '/login', '/logout', '/config'];
 app.get(FRONTEND, function (req, res) {
