@@ -40,6 +40,17 @@ myAppServices.factory('Review', ['$resource', function ($resource) {
     });
 }]);
 
+// Image Service
+myAppServices.factory('Image', ['$resource', function ($resource) {
+    return $resource('/v1/api/image/:phoneId', {}, {
+        'get': {
+            method: 'GET',
+            //transformResponse: function (data) {return angular.fromJson(data).list},
+            //isArray: true //since your list property is an array
+        }
+    });
+}]);
+
 myAppServices.factory('StorageService', ['$rootScope', function ($rootScope) {
     return {
         get: function (key) {

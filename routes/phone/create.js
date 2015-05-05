@@ -54,8 +54,8 @@ module.exports = function (req, res) {
       async.waterfall([
         function (next) {
           connection.query(
-            'INSERT INTO Phone (phone_name, phone_id)' +
-              'VALUES ("' + phone.phone_name + '","' + phone.phone_id + '")',
+            'INSERT INTO Phone (phone_name, phone_id, brand_id)' +
+              'VALUES ("' + phone.phone_name + '","' + phone.phone_id + '","' + phone.brand_id + '")',
             function (err2, rows2, fields2) {
                 if (err2) {
                   res.json({error_code: 1, msg: err.toString()});

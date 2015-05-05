@@ -25,14 +25,17 @@
             <!--Body content-->
             <ul class="phones">
                 <li ng-repeat="phone in phones | filter:searchquery | orderBy:orderProp" class="thumbnail">
-                    <a href="#/phones/{{phone.phone_id}}" class="thumb"><img ng-src="{{phone.imagesUrl[0]}}"></a>
+                    <img ng-src="{{phone.imagesUrl.images[0].imageUrl}}" class="thumb" ng-show="phone.imagesUrl.images[0].imageUrl"/>
+                    <img src="./img/phones/default.png" alt="" ng-hide="phone.imagesUrl.images[0].imageUrl" class="thumb"/>
                     <a href="#/phones/{{phone.phone_id}}">{{phone.phone_name}}</a>
 
-                    <p>{{phone.detail}} Some phone quick detail</p>
+                    <p>{{phone.general_network}}, {{phone.general_status}}, {{phone.price}}</p>
 
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#phoneEditModal" ng-click="changePhone(phone)">Edit</button>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#phoneDeleteModal" ng-click="changePhone(phone)">Delete</button>
+                        <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#phoneAddImageModal" ng-click="changePhone(phone)">Add Images</button>
+                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#phoneEditImageModal" ng-click="changePhone(phone)">Edit Images</button>
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#phoneEditModal" ng-click="changePhone(phone)">Edit Specs</button>
+                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#phoneDeleteModal" ng-click="changePhone(phone)">Delete</button>
                     </div>
                 </li>
             </ul>
@@ -56,11 +59,21 @@
 
                                 <div class="col-sm-8">
                                     <input class="form-control" ng-model="addphone.phone_id">
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">brand_id:</label>
+
+                                <div class="col-sm-8">
+                                    <!--<input class="form-control" ng-model="addphone.phone_id">-->
+                                    <input type="text" ng-model="addphone.brand_id" typeahead="brand for brand in listBrandId | filter:$viewValue | limitTo:20" class="form-control">
                                 </div>
                             </div>
                         </form>
+
                         <form class="form-horizontal" role="form" ng-repeat="(key,value) in addphone"
-                              ng-show="key!='phone_id' && key!='spes_id' && key!='slogan' && key!='logoUrl' && key!='brand_name' && key!='numberOfPhone' && key!='imagesUrl' ">
+                              ng-show="key!='phone_id' && key!='spes_id' && key!='slogan' && key!='logoUrl' && key!='brand_name' && key!='numberOfPhone' && key!='imagesUrl' && key!='brand_id' ">
                             <div class="form-group">
                                 <label class="control-label col-sm-4">{{key}}:</label>
 
@@ -104,9 +117,16 @@
                                     <input class="form-control" ng-model="currentPhone.phone_id" disabled>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">brand_id:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" ng-model="currentPhone.brand_id" typeahead="brand for brand in listBrandId | filter:$viewValue | limitTo:20" class="form-control">
+                                </div>
+                            </div>
                         </form>
+
                         <form class="form-horizontal" role="form" ng-repeat="(key,value) in currentPhone"
-                              ng-show="key!='phone_id' && key!='spes_id' && key!='slogan' && key!='logoUrl' && key!='brand_name' && key!='numberOfPhone' && key!='imagesUrl' ">
+                              ng-show="key!='brand_id' &&key!='phone_id' && key!='spes_id' && key!='slogan' && key!='logoUrl' && key!='brand_name' && key!='numberOfPhone' && key!='imagesUrl' ">
                             <div class="form-group">
                                 <label class="control-label col-sm-4">{{key}}:</label>
 
@@ -124,6 +144,89 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="editPhone()">EDIT</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Image Modal -->
+        <div class="modal fade" id="phoneAddImageModal" role="dialog">
+            <div class="modal-dialog ">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Edit {{currentPhone.phone_id}} detail</h4>
+                        <hr/>
+                    </div>
+                    <div class="modal-body">
+                        <!--<p>{{currentPhone | json}}</p>-->
+
+                        <form class="form-horizontal" ng-upload="uploadComplete(content)" action="/v1/api/image">
+                            <p>
+                                <label class="control-label col-sm-4">phone_id:</label>
+                                <input type="text" name="phone_id" ng-model="currentPhone.phone_id" />
+                            </p>
+                            <p>
+                                <label class="control-label col-sm-4">Choose Image:</label>
+                                <input type="file" name="image" />
+                            </p>
+                            <p class="col-sm-offset-4">
+                                <input type="submit" class="btn btn-sm btn-primary" value="Submit" ng-disabled="$isUploading"  />
+                            </p>
+                            <p>
+                                <label class="control-label col-sm-4">Server response : {{response}}</label>
+                            </p>
+                        </form>
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-10">
+                                <button type="submit" class="btn btn-default" ng-click="showInfo(currentPhone.imagesUrl.images)">Show Info</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="loadPhone()">DONE</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Image  Modal -->
+        <div class="modal fade" id="phoneEditImageModal" role="dialog">
+            <div class="modal-dialog  custom-class">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Edit {{currentPhone.phone_id}} detail</h4>
+                        <hr/>
+                    </div>
+                    <div class="modal-body">
+                        <!--<p>{{currentPhone | json}}</p>-->
+                        <form class="form-horizontal" role="form">
+                            <!-- Edit -->
+                            <div ng-repeat="x in currentPhone.imagesUrl.images">
+                                <div ng-hide="show">
+                                    {{$index}} :  {{x|json}} <i class="fa fa-arrow-right"></i> <button class="btn btn-danger btn-md" ng-click="deleteImage(x.image_id); show=!show"><span><i class="fa fa-trash-o"></i></span></button>
+                                    <a href="{{x.imageUrl}}" class="btn btn-md btn-primary" target="_blank"><span><i class="fa fa-search-plus"></i></span></a>
+                                    <hr/>
+                                </div>
+                            </div>
+                        </form>
+                        <!--<div class="form-group">-->
+                            <!--<div class="col-sm-offset-4 col-sm-10">-->
+                                <!--<button type="submit" class="btn btn-default" ng-click="showInfo(currentPhone.imagesUrl.images)">Show Info</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="">DONE</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
                     </div>
                 </div>

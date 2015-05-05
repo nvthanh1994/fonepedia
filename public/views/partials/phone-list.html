@@ -24,7 +24,9 @@
             <!--Body content-->
             <ul class="phones">
                 <li ng-repeat="phone in phones | filter:searchquery | orderBy:orderProp" class="thumbnail">
-                    <a href="#/phones/{{phone.phone_id}}" class="thumb"><img ng-src="{{phone.imagesUrl[0]}}"></a>
+                    <!--<a href="#/phones/{{phone.phone_id}}" class="thumb"><img ng-src="{{phone.imagesUrl.images[0].imageUrl}}"></a>-->
+                    <img ng-src="{{phone.imagesUrl.images[0].imageUrl}}" class="thumb" ng-show="phone.imagesUrl.images[0].imageUrl"/>
+                    <img src="./img/phones/default.png" alt="" ng-hide="phone.imagesUrl.images[0].imageUrl" class="thumb"/>
                     <a href="#/phones/{{phone.phone_id}}">{{phone.phone_name}}</a>
 
                     <p>{{phone.detail}} Some phone quick detail</p>

@@ -6,7 +6,10 @@ var myApp = angular.module('myApp', [
     'ngResource',
     'myAppCtrls',
     'myAppServices',
-    'angucomplete'
+    'textAngular',
+    'ui.bootstrap',
+    //'ngFileUpload',
+    'ngUpload'
 ]);
 myApp.config(['$routeProvider',
     function ($routeProvider) {

@@ -15,7 +15,7 @@
                 <hr/>
             </div>
             <div class="btn-group">
-                <button class="btn btn-info text-muted" ng-click="loadReview()">Show Reviews</button>
+                <button class="btn btn-info text-muted"  ng-click="loadReview()">Show Reviews</button>
                 <button class="btn btn-success text-muted" data-toggle="modal" data-target="#reviewCreateModal" ng-click="addReview()">Add Review</button>
             </div>
 
@@ -25,8 +25,8 @@
             <!--Body content-->
             <ul class="phones">
                 <li ng-repeat="review in reviews | filter:searchquery | orderBy:orderProp" class="thumbnail">
-                    <a href="#/phones/{{review.review_id}}" class="thumb"><img ng-src="{{review.imagesUrl[0]}}"></a>
-                    <a href="#/phones/{{review.review_id}}">{{review.review_title}}</a>
+                    <a href="#/reviews/{{review.phone_id}}" class="thumb"><img ng-src="{{review.imagesUrl[0]}}"></a>
+                    <a href="#/reviews/{{review.phone_id}}">{{review.review_title}}</a>
 
                     <p>{{review.review_content | limitTo : 100}}</p>
 
@@ -66,7 +66,8 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-2">review_content:</label>
                                 <div class="col-sm-10">
-                                    <textarea name="reviewcontent" id="rc" cols="30" rows="30" ng-model="addreview.review_content" class="form-control"></textarea>
+                                    <!--<textarea name="reviewcontent" id="rc" cols="30" rows="30" ng-model="addreview.review_content" class="form-control"></textarea>-->
+                                    <text-angular ng-model="addreview.review_content"> </text-angular>
                                 </div>
                             </div>
                         </form>
@@ -113,7 +114,8 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-2">review_content:</label>
                                 <div class="col-sm-10">
-                                    <textarea name="reviewcontent2" id="rc2" cols="30" rows="30" ng-model="currentReview.review_content" class="form-control"></textarea>
+                                    <!--<textarea name="reviewcontent2" id="rc2" cols="30" rows="30" ng-model="currentReview.review_content" class="form-control"></textarea>-->
+                                    <text-angular ng-model="currentReview.review_content"> </text-angular>
                                 </div>
                             </div>
 
@@ -157,6 +159,7 @@
         </div>
     </div>
 </div>
+
 
 
 

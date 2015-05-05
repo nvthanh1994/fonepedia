@@ -32,6 +32,7 @@ app.put('/v1/api/review', routes.review.update);
 
 app.post('/v1/api/image', routes.image.create);
 app.get('/v1/api/image/:phone_id', routes.image.getAll);
+app.delete('/v1/api/image/:image_id',routes.image.delete);
 
 var FRONTEND = ['/', '/group/:id', '/login', '/logout', '/config'];
 app.get(FRONTEND, function (req, res) {

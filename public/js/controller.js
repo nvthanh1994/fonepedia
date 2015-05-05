@@ -21,49 +21,43 @@ myAppCtrl.controller('BrandListCtrl', ['$scope', 'Brand', function ($scope, Bran
     $scope.orderProp = 'brand_name';
 }]);
 
-myAppCtrl.controller('BrandDetailCtrl', ['$scope', '$routeParams', 'Brand', function ($scope, $routeParams, Brand) {
+myAppCtrl.controller('BrandDetailCtrl', ['$scope', '$routeParams', 'Brand', 'Image', function ($scope, $routeParams, Brand, Image) {
     Brand.get({brandId: $routeParams.brandId}).$promise.then(function (res) {
+        for (var i = 0; i < res.phones.length; i++) {
+            //console.log(res.phones[i]);
+            var id = res.phones[i].phone_id;
+            res.phones[i].imagesUrl = Image.get({phoneId: id})
+        }
         $scope.brandphones = res.phones;
         console.log($scope.brandphones);
-        for (var i = 0; i < $scope.brandphones.length; i++) {
-            $scope.brandphones[i].imagesUrl = [2];
-            for (var j = 0; j <= 1; j++) {
-                //$scope.brandphones[i].imagesUrl[j] = './img/phones/' + $scope.brandphones[i].phone_id + '/' + j + '.jpg';
-                $scope.brandphones[i].imagesUrl[j] = './img/phones/default.png';
-            }
-        }
     });
 }]);
 
-myAppCtrl.controller('PhoneListCtrl', ['$rootScope', '$scope', 'Phone', 'Brand', function ($rootScope, $scope, Phone, Brand) {
+myAppCtrl.controller('PhoneListCtrl', ['$rootScope', '$scope', 'Phone', 'Brand', 'Image', '$http', function ($rootScope, $scope, Phone, Brand, Image, $http) {
     $scope.orderProp = 'phone_name';
     $scope.query = $rootScope.searchquery;
     $scope.brands = Brand.query();
     Phone.query().$promise.then(function (res) {
-        $scope.phones = res.phone;
-        for (var i = 0; i < $scope.phones.length; i++) {
-            $scope.phones[i].imagesUrl = [2];
-            for (var j = 0; j <= 1; j++) {
-                //$scope.phones[i].imagesUrl[j] = './img/phones/' + $scope.phones[i].phone_id + '/' + j + '.jpg';
-                $scope.phones[i].imagesUrl[j] = './img/phones/default.png';
-            }
+        for (var i = 0; i < res.phone.length; i++) {
+            //console.log(res.phone[i]);
+            var id = res.phone[i].phone_id;
+            res.phone[i].imagesUrl = Image.get({phoneId: id})
         }
+        $scope.phones = res.phone;
     });
+
+
 }]);
 
-myAppCtrl.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone', 'Brand', 'Review',  function ($scope, $routeParams, Phone, Brand, Review) {
+myAppCtrl.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone', 'Brand', 'Review', 'Image', function ($scope, $routeParams, Phone, Brand, Review, Image) {
     Phone.get({phoneId: $routeParams.phoneId}).$promise.then(function (res) {
+        //console.log(res.phone);
+        res.phone.imagesUrl = Image.get({phoneId : res.phone.phone_id});
         $scope.phone = res.phone;
-        console.log($scope.phone);
-
-        $scope.phone.imagesUrl = [2];
-        for (var i = 0; i <= 1; i++) {
-            $scope.phone.imagesUrl[i] = './img/phones/' + $scope.phone.phone_id + '/' + i + '.jpg';
-        }
     });
     $scope.info = 'Phone Detail Ctrl';
     $scope.brands = Brand.query();
-    Review.get({reviewId : $routeParams.phoneId}).$promise.then(function(res){
+    Review.get({reviewId: $routeParams.phoneId}).$promise.then(function (res) {
         $scope.review = res.review;
     });
 
@@ -81,10 +75,10 @@ myAppCtrl.controller('ReviewListCtrl', ['$scope', 'Review', function ($scope, Re
 myAppCtrl.controller('ReviewDetailCtrl', ['$scope', 'Review', '$routeParams', function ($scope, Review, $routeParams) {
     $scope.info = "At review detail";
     $scope.review = {
-        review_id : '0',
-        review_title : 'None',
-        review_content : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi architecto beatae consectetur, dolor dolore ducimus eveniet ex illo inventore officia, pariatur placeat quibusdam reiciendis repellendus, sapiente sed similique ullam voluptate.',
-        phone_id : 'none'
+        review_id: '0',
+        review_title: 'None',
+        review_content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi architecto beatae consectetur, dolor dolore ducimus eveniet ex illo inventore officia, pariatur placeat quibusdam reiciendis repellendus, sapiente sed similique ullam voluptate.',
+        phone_id: 'none'
     }
 
     Review.get({reviewId: $routeParams.reviewId}).$promise.then(function (res) {
@@ -95,13 +89,14 @@ myAppCtrl.controller('ReviewDetailCtrl', ['$scope', 'Review', '$routeParams', fu
 
 
 // Craft :v.
-myAppCtrl.controller('DashboardCtrl', ['Phone', 'Review', '$route', '$timeout', '$scope', '$http', 'StorageService', '$location', function (Phone, Review, $route, $timeout, $scope, $http, StorageService, $location) {
+myAppCtrl.controller('DashboardCtrl', ['Image', 'Brand', 'Phone', 'Review', '$route', '$timeout', '$scope', '$http', 'StorageService', '$location', function (Image, Brand, Phone, Review, $route, $timeout, $scope, $http, StorageService, $location) {
     // Authetication
     $scope.user = {
         username: "",
         password: ""
     }
     $scope.wrongUser = false;
+
 
     // Kiểm tra key isLogined trong localStorage
     if (StorageService.get('isLogined')) {
@@ -155,16 +150,14 @@ myAppCtrl.controller('DashboardCtrl', ['Phone', 'Review', '$route', '$timeout', 
 
 
     // Phone Management
+    $scope.listBrandId = ['apple', 'blackberry', 'asus', 'htc', 'huawei', 'lenovo', 'lg', 'microsoft', 'nokia', 'xiaomi', 'oppo', 'motorola', 'samsung', 'sharp', 'sony'];
+
     $scope.loadPhone = function () {
         Phone.query().$promise.then(function (res) {
-            $scope.phones = res.phone;
-            for (var i = 0; i < $scope.phones.length; i++) {
-                $scope.phones[i].imagesUrl = [2];
-                for (var j = 0; j <= 1; j++) {
-                    //$scope.phones[i].imagesUrl[j] = './img/phones/' + $scope.phones[i].phone_id + '/' + j + '.jpg';
-                    $scope.phones[i].imagesUrl[j] = './img/phones/default.png';
-                }
+            for (var i = 0; i <res.phone.length; i++) {
+                res.phone[i].imagesUrl = Image.get({phoneId: res.phone[i].phone_id})
             }
+            $scope.phones = res.phone;
             $scope.addphone = angular.copy($scope.phones[0]);
             for (var key in $scope.addphone) {
                 if ($scope.addphone.hasOwnProperty(key)) {
@@ -174,6 +167,12 @@ myAppCtrl.controller('DashboardCtrl', ['Phone', 'Review', '$route', '$timeout', 
         });
     }
     $scope.currentPhone = {};
+
+    $scope.updatePhone = function(phone){
+        Phone.get({phoneId : phone.phone_id}).$promise.then(function(res){
+            phone = res.phone;
+        });
+    }
 
     $scope.changePhone = function (phone) {
         $scope.currentPhone = phone;
@@ -234,7 +233,7 @@ myAppCtrl.controller('DashboardCtrl', ['Phone', 'Review', '$route', '$timeout', 
     }
     $scope.currentReview = {};
 
-    $scope.changeReview = function(review){
+    $scope.changeReview = function (review) {
         $scope.currentReview = review;
         console.log("Here, delete review");
         console.log($scope.currentReview);
@@ -264,6 +263,22 @@ myAppCtrl.controller('DashboardCtrl', ['Phone', 'Review', '$route', '$timeout', 
         $scope.loadReview();     // Reload reviewlist
     }
 
+    $scope.deleteImage = function(imageId){
+        console.log(imageId);
+        $http.delete('v1/api/image/'+imageId).success(function(data,status,headers,config){
+            console.log("delete " + imageId + ' ok !');
+        }).error(function(data,status,headers,config){
+            console.log('delete not ok');
+        });
+        $scope.loadPhone();
+        $scope.updatePhone($scope.currentPhone);
+    }
+
+    $scope.uploadComplete = function (content) {
+        console.log(content);
+        $scope.response = content;
+    };
 
 
 }]);
+

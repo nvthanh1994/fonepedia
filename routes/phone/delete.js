@@ -31,7 +31,7 @@ module.exports = function (req, res) {
   connection.query(
     'DELETE ' +
       'FROM Phone ' +
-      'WHERE Phone.phone_id ="' + phone_id + ' " ',
+      'WHERE Phone.phone_id ="' + phone_id + '" ',
     function (err, rows, fields) {
         console.log('Remove phone');
         if (err) {

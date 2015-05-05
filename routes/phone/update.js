@@ -40,7 +40,7 @@ module.exports = function (req, res) {
 
   connection.query(
     // ======= UPDATE PHONE NAME ==========
-    'UPDATE Phone SET phone_name="' + phone.phone_name + '" ' +
+      'UPDATE Phone SET phone_name="' + phone.phone_name + '", brand_id="' + phone.brand_id +'" ' +
       'WHERE phone_id ="' + phone.phone_id+'"',
     function (err, rows, fields) {
         if (err) {

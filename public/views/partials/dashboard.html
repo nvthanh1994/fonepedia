@@ -52,7 +52,11 @@
     <div class="col-md-2">
         <ul style="list-style: none;">
             <li class="text-primary well text-center h6"><p>Hi, {{userInfo}}</p></li>
-            <li class="text-primary well text-center h6"><p><button class="btn btn-md btn-info" ng-click="logout()">Log out</button></p></li>
+            <li class="text-primary well text-center h6">
+                <p>
+                    <button class="btn btn-md btn-info" ng-click="logout()">Log out</button>
+                </p>
+            </li>
         </ul>
     </div>
     <div class="col-md-10" id="content">
@@ -64,3 +68,22 @@
         </ul>
     </div>
 </div>
+
+
+<!--<div ng-controller="MyCtrl">-->
+
+    <!--<form ng-upload="uploadComplete(content)" action="/v1/api/image">-->
+        <!--<p>-->
+            <!--<label>phone_id:</label>-->
+            <!--<input type="text" name="phone_id" ng-model="phoneId" />-->
+        <!--</p>-->
+        <!--<p>-->
+            <!--<label>Your picture (file will not be saved on the server):</label>-->
+            <!--<input type="file" name="image" />-->
+        <!--</p>-->
+        <!--<p>-->
+            <!--<input type="submit" class="btn" value="Submit" ng-disabled="$isUploading"  />-->
+        <!--</p>-->
+    <!--</form>-->
+    <!--<div>Server Response: {{response}}</div>-->
+<!--</div>-->

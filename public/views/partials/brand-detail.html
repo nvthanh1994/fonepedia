@@ -21,7 +21,7 @@
             <div class="makers">
                 <!--<ul class="four-column no-bullets">-->
                 <li ng-repeat="phone in brandphones | filter:query | orderBy:orderProp" class="phones">
-                    <a href="#/phones/{{phone.phone_id}}"><img ng-src="{{phone.imagesUrl[0]}}" class="phone"></a>
+                    <a href="#/phones/{{phone.phone_id}}"><img ng-src="{{phone.imagesUrl.images[0].imageUrl}}" class="phone"></a>
                     <strong>{{phone.phone_name}}</strong>
                 </li>
                 <!--</ul>-->
