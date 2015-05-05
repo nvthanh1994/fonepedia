@@ -51,7 +51,7 @@ myAppCtrl.controller('PhoneListCtrl', ['$rootScope', '$scope', 'Phone', 'Brand',
     });
 }]);
 
-myAppCtrl.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone', 'Brand', function ($scope, $routeParams, Phone, Brand) {
+myAppCtrl.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone', 'Brand', 'Review',  function ($scope, $routeParams, Phone, Brand, Review) {
     Phone.get({phoneId: $routeParams.phoneId}).$promise.then(function (res) {
         $scope.phone = res.phone;
         console.log($scope.phone);
@@ -63,22 +63,40 @@ myAppCtrl.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone', 'Bra
     });
     $scope.info = 'Phone Detail Ctrl';
     $scope.brands = Brand.query();
+    Review.get({reviewId : $routeParams.phoneId}).$promise.then(function(res){
+        $scope.review = res.review;
+    });
+
 }]);
 
 myAppCtrl.controller('ReviewListCtrl', ['$scope', 'Review', function ($scope, Review) {
     console.log("Here");
     $scope.orderProp = 'title';
     $scope.info = "At review list";
-    $scope.reviews = Review.query();
+    Review.query().$promise.then(function (res) {
+        $scope.reviews = res.review;
+    });
 }]);
 
 myAppCtrl.controller('ReviewDetailCtrl', ['$scope', 'Review', '$routeParams', function ($scope, Review, $routeParams) {
     $scope.info = "At review detail";
+    $scope.review = {
+        review_id : '0',
+        review_title : 'None',
+        review_content : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi architecto beatae consectetur, dolor dolore ducimus eveniet ex illo inventore officia, pariatur placeat quibusdam reiciendis repellendus, sapiente sed similique ullam voluptate.',
+        phone_id : 'none'
+    }
+
+    Review.get({reviewId: $routeParams.reviewId}).$promise.then(function (res) {
+        $scope.review = res.review;
+        console.log($scope.review);
+    });
 }]);
 
 
 // Craft :v.
-myAppCtrl.controller('DashboardCtrl', ['Phone', '$route', '$timeout', '$scope', '$http', 'StorageService', '$location', function (Phone, $route, $timeout, $scope, $http, StorageService, $location) {
+myAppCtrl.controller('DashboardCtrl', ['Phone', 'Review', '$route', '$timeout', '$scope', '$http', 'StorageService', '$location', function (Phone, Review, $route, $timeout, $scope, $http, StorageService, $location) {
+    // Authetication
     $scope.user = {
         username: "",
         password: ""
@@ -135,6 +153,8 @@ myAppCtrl.controller('DashboardCtrl', ['Phone', '$route', '$timeout', '$scope', 
         }, 100);
     }
 
+
+    // Phone Management
     $scope.loadPhone = function () {
         Phone.query().$promise.then(function (res) {
             $scope.phones = res.phone;
@@ -148,7 +168,7 @@ myAppCtrl.controller('DashboardCtrl', ['Phone', '$route', '$timeout', '$scope', 
             $scope.addphone = angular.copy($scope.phones[0]);
             for (var key in $scope.addphone) {
                 if ($scope.addphone.hasOwnProperty(key)) {
-                    $scope.addphone[key] = null;
+                    $scope.addphone[key] = '';
                 }
             }
         });
@@ -180,12 +200,70 @@ myAppCtrl.controller('DashboardCtrl', ['Phone', '$route', '$timeout', '$scope', 
 
     }
     $scope.createPhone = function () {
-        console.log("Creating " + $scope.currentPhone);
+        console.log("Creating " + $scope.addphone);
+        $http.post('v1/api/phone', $scope.addphone).success(function (data, status, headers, config) {
+            console.log('Post OK');
+        }).error(function (data, status, headers, config) {
+            console.log('Post error');
+        });
+        $scope.loadPhone();
     }
     $scope.showInfo = function (phone) {
         alert(JSON.stringify(phone, null, " \n "));
         //console.log(JSON.stringify($scope.currentPhone,null," \n "));
     }
+
+    //
+    $scope.loadReview = function () {
+        Review.query().$promise.then(function (res) {
+            $scope.reviews = res.review;
+            for (var i = 0; i < $scope.reviews.length; i++) {
+                $scope.reviews[i].imagesUrl = [2];
+                for (var j = 0; j <= 1; j++) {
+                    //$scope.reviews[i].imagesUrl[j] = './img/phones/' + $scope.reviews[i].phone_id + '/' + j + '.jpg';
+                    $scope.reviews[i].imagesUrl[j] = './img/phones/default.png';
+                }
+            }
+            $scope.addreview = angular.copy($scope.reviews[0]);
+            for (var key in $scope.addreview) {
+                if ($scope.addreview.hasOwnProperty(key)) {
+                    $scope.addreview[key] = '';
+                }
+            }
+        });
+    }
+    $scope.currentReview = {};
+
+    $scope.changeReview = function(review){
+        $scope.currentReview = review;
+        console.log("Here, delete review");
+        console.log($scope.currentReview);
+    }
+    $scope.deleteReview = function () {
+        console.log("Deleting " + $scope.currentReview.review_id);
+        Review.delete({reviewId: $scope.currentReview.review_id});
+        $scope.loadReview();     // Reload reviewlist
+    }
+
+    $scope.createReview = function () {
+        console.log("Creating " + $scope.addreview);
+        $http.post('v1/api/review', $scope.addreview).success(function (data, status, headers, config) {
+            console.log('Post OK review');
+        }).error(function (data, status, headers, config) {
+            console.log('Post error review');
+        });
+        $scope.loadReview();
+    }
+    $scope.editReview = function () {
+        console.log("Editing" + $scope.currentReview.review_title);
+        $http.put('v1/api/review', $scope.currentReview).success(function (data, status, headers, config) {
+            console.log("Put review OK ");
+        }).error(function (data, status, headers, config) {
+            console.log('Put review error');
+        });
+        $scope.loadReview();     // Reload reviewlist
+    }
+
 
 
 }]);

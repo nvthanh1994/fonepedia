@@ -1,0 +1,162 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <!--Sidebar content-->
+            <div>
+                Search : <input ng-model="searchquery" class="form-control"> <br>
+            </div>
+            <!-- Filter -->
+            <div>
+                Sort by :
+                <select ng-model="orderProp" style="min-width: 70%;">
+                    <option selected value="review_title">Alphabet</option>
+                    <option value="review_date">Newest</option>
+                </select>
+                <hr/>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-info text-muted" ng-click="loadReview()">Show Reviews</button>
+                <button class="btn btn-success text-muted" data-toggle="modal" data-target="#reviewCreateModal" ng-click="addReview()">Add Review</button>
+            </div>
+
+        </div>
+
+        <div class="col-md-9">
+            <!--Body content-->
+            <ul class="phones">
+                <li ng-repeat="review in reviews | filter:searchquery | orderBy:orderProp" class="thumbnail">
+                    <a href="#/phones/{{review.review_id}}" class="thumb"><img ng-src="{{review.imagesUrl[0]}}"></a>
+                    <a href="#/phones/{{review.review_id}}">{{review.review_title}}</a>
+
+                    <p>{{review.review_content | limitTo : 100}}</p>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reviewEditModal" ng-click="changeReview(review)">Edit</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#reviewDeleteModal" ng-click="changeReview(review)">Delete</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Create  Modal - Use form validation -->
+        <div class="modal fade" id="reviewCreateModal" role="dialog">
+            <div class="modal-dialog  custom-class">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Create new Review. Enter the detail : </h4>
+                        <hr/>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{addreview | json}}</p>
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">phone_id:</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" ng-model="addreview.phone_id">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">review_title:</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" ng-model="addreview.review_title">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">review_content:</label>
+                                <div class="col-sm-10">
+                                    <textarea name="reviewcontent" id="rc" cols="30" rows="30" ng-model="addreview.review_content" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default" ng-click="showInfo(addreview)">Preview</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="createReview()">CREATE</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit  Modal -->
+        <div class="modal fade" id="reviewEditModal" role="dialog">
+            <div class="modal-dialog  custom-class">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Edit {{currentReview.review_title}} detail</h4>
+                        <hr/>
+                    </div>
+                    <div class="modal-body">
+                        <!--<p>{{currentPhone | json}}</p>-->
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">phone_id:</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" ng-model="currentReview.phone_id" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">review_title:</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" ng-model="currentReview.review_title">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">review_content:</label>
+                                <div class="col-sm-10">
+                                    <textarea name="reviewcontent2" id="rc2" cols="30" rows="30" ng-model="currentReview.review_content" class="form-control"></textarea>
+                                </div>
+                            </div>
+
+                        </form>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-10">
+                                <button type="submit" class="btn btn-default" ng-click="showInfo(currentReview)">Show Info</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="editReview()">EDIT</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete  Modal -->
+        <div class="modal fade" id="reviewDeleteModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Confirm Delete</h4>
+                        <hr/>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure to delete this review : <span class="text-danger h5">{{currentReview.review_title}}</span> ? </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteReview()">YES</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">NO</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
