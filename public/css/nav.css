@@ -62,6 +62,9 @@ h2{color:#0b56a8;}
     .custom-class {
         width: 90%; /* either % (e.g. 60%) or px (400px) */
     }
+    .custom-class2 {
+        width: 40%; /* either % (e.g. 60%) or px (400px) */
+    }
 }
 
 /* Upload CSS*/
@@ -90,4 +93,11 @@ h2{color:#0b56a8;}
 }
 .dragover {
     border: 5px dashed blue;
+}
+
+/*Gallery*/
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+    width: 100%;
+    margin: auto;
 }

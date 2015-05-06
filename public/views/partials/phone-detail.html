@@ -8,18 +8,21 @@
         </div>
         <div class="col-md-9">
             <div class="row">
-                <a href="#/brands/{{phone.brand_id}}"><h5 class="text-primary" style="float:left;">{{phone.phone_name}}</h5></a>
-                <a href="#/brands/{{phone.brand_id}}"><img ng-src="./img/logo/{{phone.logoUrl}}" style="float:right;" alt="No logo found" class="img-thumbnail"/></a>
+                <a href="#/brands/{{phone[0].brand_id}}"><h5 class="text-primary" style="float:left;">{{phone.phone_name}}</h5></a>
+                <a href="#/brands/{{phone[0].brand_id}}"><img ng-src="./img/logo/{{phone.logoUrl}}" style="float:right;" alt="No logo found" class="img-thumbnail"/></a>
                 <br/>
                 <hr style="border: 2px solid rgba(192, 47, 137, 0.66);">
             </div>
             <div class="col-md-4">
                 <img ng-src="{{phone.imagesUrl.images[0].imageUrl}}" class="phone" ng-show="phone.imagesUrl.images[0].imageUrl"/>
                 <img src="./img/phones/default.png" alt="" ng-hide="phone.imagesUrl.images[0].imageUrl" class="phone" style="max-width: 200px; max-height: 200px"/>
-
-                <p class="text-info h5"><i class="fa fa-picture-o"></i> Images Gallery</p>
-
-                <p class="text-info h5"><i class="fa fa-newspaper-o"></i> <a href="#/reviews/{{review.phone_id}}">{{review.review_title}}</a></p>
+                <br/>
+                <br/>
+                <hr/>
+                <p class="text-info h5"><i class="fa fa-picture-o"></i> Images Gallery <i class="fa fa-external-link-square" data-toggle="modal" data-target="#GalleryModal"></i></p>
+                <hr/>
+                <p class="text-info h5"><i class="fa fa-newspaper-o"></i> <a href="#/reviews/{{review.phone_id}}">{{review.review_title}} <i class="fa fa-external-link-square"></i></a></p>
+                <hr/>
             </div>
             <div class="col-md-8">
                 <div id="specs-list">
@@ -50,10 +53,6 @@
                         <tr>
                             <td class="ttl">Weight</td>
                             <td class="nfo">{{phone.body_weight}}</td>
-                        </tr>
-                        <tr>
-                            <td class="ttl">+</td>
-                            <td class="nfo">Light weight</td>
                         </tr>
                     </table>
                     <!-- Display-->
@@ -194,6 +193,36 @@
                         </tr>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="GalleryModal" role="dialog">
+    <div class="modal-dialog custom-class2">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Image Gallery</h4>
+                <hr/>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div style="height: 550px">
+                        <carousel interval="myInterval">
+                            <slide ng-repeat="slide in slides" active="slide.active">
+                                <img ng-src="{{slide.image}}" style="margin:auto; max-height: 530px;">
+                                <!--<div class="carousel-caption">-->
+                                    <!--<h4>Image {{$index}}</h4>-->
+                                <!--</div>-->
+                            </slide>
+                        </carousel>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Exit</button>
             </div>
         </div>
     </div>

@@ -17,7 +17,7 @@ module.exports = function (req, res) {
         return;
       }
       connection.query(
-        'INSERT INTO Review (`phone_id`, `review_title`, `review_content`) VALUES ("' + phone_id + '","' + review_title + '","' + review_content + '")',
+        'INSERT INTO Review (`phone_id`, `review_title`, `review_content`) VALUES ("' + phone_id + '","' + review_title + '",\'' + review_content + '\')',
         function (err, rows, fields) {
           console.log(err);
           res.json({error_code: 0});

@@ -45,15 +45,31 @@ myAppCtrl.controller('PhoneListCtrl', ['$rootScope', '$scope', 'Phone', 'Brand',
         }
         $scope.phones = res.phone;
     });
-
-
 }]);
 
 myAppCtrl.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone', 'Brand', 'Review', 'Image', function ($scope, $routeParams, Phone, Brand, Review, Image) {
     Phone.get({phoneId: $routeParams.phoneId}).$promise.then(function (res) {
-        //console.log(res.phone);
+
         res.phone.imagesUrl = Image.get({phoneId : res.phone.phone_id});
+        Image.get({phoneId : res.phone.phone_id}).$promise.then(function(res2){
+            // Gallery
+            $scope.myInterval = 5000;
+            var slides = $scope.slides = [];
+            $scope.addSlide = function(i) {
+                //var newWidth = 600 + slides.length + 1;
+                slides.push({
+                    //image: 'http://placekitten.com/' + newWidth + '/300'
+                    image : res2.images[i].imageUrl
+                });
+            };
+            for (var i=0; i<res2.images.length; i++) {
+                $scope.addSlide(i);
+            }
+            console.log(res2.images.length);
+            console.log(res2.images[0]);
+        });
         $scope.phone = res.phone;
+        console.log($scope.phone);
     });
     $scope.info = 'Phone Detail Ctrl';
     $scope.brands = Brand.query();
@@ -61,13 +77,18 @@ myAppCtrl.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone', 'Bra
         $scope.review = res.review;
     });
 
+
+
 }]);
 
-myAppCtrl.controller('ReviewListCtrl', ['$scope', 'Review', function ($scope, Review) {
+myAppCtrl.controller('ReviewListCtrl', ['$scope', 'Review', 'Image', function ($scope, Review, Image) {
     console.log("Here");
     $scope.orderProp = 'title';
     $scope.info = "At review list";
     Review.query().$promise.then(function (res) {
+        for(var i=0;i<res.review.length;i++){
+            res.review[i].imagesUrl = Image.get({phoneId : res.review[i].phone_id})
+        }
         $scope.reviews = res.review;
     });
 }]);
@@ -215,14 +236,11 @@ myAppCtrl.controller('DashboardCtrl', ['Image', 'Brand', 'Phone', 'Review', '$ro
     //
     $scope.loadReview = function () {
         Review.query().$promise.then(function (res) {
-            $scope.reviews = res.review;
-            for (var i = 0; i < $scope.reviews.length; i++) {
-                $scope.reviews[i].imagesUrl = [2];
-                for (var j = 0; j <= 1; j++) {
-                    //$scope.reviews[i].imagesUrl[j] = './img/phones/' + $scope.reviews[i].phone_id + '/' + j + '.jpg';
-                    $scope.reviews[i].imagesUrl[j] = './img/phones/default.png';
-                }
+            for(var i=0;i<res.review.length;i++){
+                res.review[i].imagesUrl = Image.get({phoneId : res.review[i].phone_id})
             }
+            $scope.reviews = res.review;
+
             $scope.addreview = angular.copy($scope.reviews[0]);
             for (var key in $scope.addreview) {
                 if ($scope.addreview.hasOwnProperty(key)) {
@@ -254,7 +272,9 @@ myAppCtrl.controller('DashboardCtrl', ['Image', 'Brand', 'Phone', 'Review', '$ro
         $scope.loadReview();
     }
     $scope.editReview = function () {
-        console.log("Editing" + $scope.currentReview.review_title);
+        console.log("Editing " + $scope.currentReview.review_title);
+        console.log("Editing " + $scope.currentReview.review_content);
+        console.log($scope.currentReview);
         $http.put('v1/api/review', $scope.currentReview).success(function (data, status, headers, config) {
             console.log("Put review OK ");
         }).error(function (data, status, headers, config) {
@@ -279,6 +299,7 @@ myAppCtrl.controller('DashboardCtrl', ['Image', 'Brand', 'Phone', 'Review', '$ro
         $scope.response = content;
     };
 
+    $scope.tempId='review';
 
 }]);
 

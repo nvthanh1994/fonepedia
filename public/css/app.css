@@ -11,8 +11,9 @@ body {
 
 .thumb {
     float: left;
-    margin: -0.5em 1.5em 1.5em 0;
-    padding-bottom: 1em;
+    margin: -0.5em 2.5em 2.5em 0em;
+    padding-bottom: 0.5em;
+    padding-right: 8em;
     max-height: 100px;
     max-width: 100px;
 }
