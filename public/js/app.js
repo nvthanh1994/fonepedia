@@ -11,8 +11,8 @@ var myApp = angular.module('myApp', [
     //'ngFileUpload',
     'ngUpload'
 ]);
-myApp.config(['$routeProvider',
-    function ($routeProvider) {
+myApp.config(['$routeProvider','$locationProvider',
+    function ($routeProvider, $locationProvider) {
         $routeProvider.
             when('/', { // home
                 templateUrl: 'views/partials/home.html',
@@ -54,9 +54,15 @@ myApp.config(['$routeProvider',
                 templateUrl: 'views/partials/contact.html',
                 title: 'Contact us'
             }).
-            when('/faq', {
-                templateUrl: 'views/partials/faq.html',
-                title: 'FAQ'
+            when('/news', {
+                templateUrl: 'views/partials/new-list.html',
+                controller : 'NewListCtrl',
+                title: 'Lastest news'
+            }).
+            when('/news/:newId',{
+                templateUrl : 'views/partials/new-detail.html',
+                controller : 'NewDetailCtr',
+                title : 'News'
             }).
             when('/dashboard', {		                // admin dashboard
                 templateUrl: 'views/partials/dashboard.html',
@@ -73,10 +79,15 @@ myApp.config(['$routeProvider',
                 controller : 'DashboardCtrl',
                 title : 'Review Management'
             }).
+            when('/dashboard/news',{
+                templateUrl : 'views/partials/dashboard-new.html',
+                controller : 'DashboardCtrl',
+                title : 'New Management'
+            }).
             otherwise({
             redirectTo: '/'
         });
-        // $locationProvider.html5Mode(true);
+        //$locationProvider.html5Mode(true);
     }
 
 ]);

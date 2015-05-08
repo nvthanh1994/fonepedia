@@ -51,6 +51,12 @@ myAppServices.factory('Image', ['$resource', function ($resource) {
     });
 }]);
 
+// New Service
+myAppServices.factory('New',['$resource',function($resource){
+    return $resource('v1/api/image/:phoneId',{},{
+    });
+}]);
+
 myAppServices.factory('StorageService', ['$rootScope', function ($rootScope) {
     return {
         get: function (key) {

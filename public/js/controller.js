@@ -65,14 +65,17 @@ myAppCtrl.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone', 'Bra
             for (var i=0; i<res2.images.length; i++) {
                 $scope.addSlide(i);
             }
-            console.log(res2.images.length);
-            console.log(res2.images[0]);
+            //console.log(res2.images.length);
+            //console.log(res2.images[0]);
         });
+        res.similar = Brand.get({brandId: res.phone.brand_id });
         $scope.phone = res.phone;
+        $scope.similar = res.similar;
         console.log($scope.phone);
+        console.log($scope.similar);
     });
     $scope.info = 'Phone Detail Ctrl';
-    $scope.brands = Brand.query();
+
     Review.get({reviewId: $routeParams.phoneId}).$promise.then(function (res) {
         $scope.review = res.review;
     });
@@ -99,6 +102,7 @@ myAppCtrl.controller('ReviewDetailCtrl', ['$scope', 'Review', '$routeParams', fu
         review_id: '0',
         review_title: 'None',
         review_content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi architecto beatae consectetur, dolor dolore ducimus eveniet ex illo inventore officia, pariatur placeat quibusdam reiciendis repellendus, sapiente sed similique ullam voluptate.',
+        review_avatar : 'http://localhost:8000/img/phones/review_default.png',
         phone_id: 'none'
     }
 
@@ -108,6 +112,13 @@ myAppCtrl.controller('ReviewDetailCtrl', ['$scope', 'Review', '$routeParams', fu
     });
 }]);
 
+myAppCtrl.controller('NewListCtrl',['$scope','New',function($scope,New){
+
+}]);
+
+myAppCtrl.controller('NewDetailCtrl',['$scope','New', '$routeParams', function($scope,New, $routeParams){
+
+}]);
 
 // Craft :v.
 myAppCtrl.controller('DashboardCtrl', ['Image', 'Brand', 'Phone', 'Review', '$route', '$timeout', '$scope', '$http', 'StorageService', '$location', function (Image, Brand, Phone, Review, $route, $timeout, $scope, $http, StorageService, $location) {
