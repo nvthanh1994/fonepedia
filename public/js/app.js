@@ -61,7 +61,7 @@ myApp.config(['$routeProvider','$locationProvider',
             }).
             when('/news/:newId',{
                 templateUrl : 'views/partials/new-detail.html',
-                controller : 'NewDetailCtr',
+                controller : 'NewDetailCtrl',
                 title : 'News'
             }).
             when('/dashboard', {		                // admin dashboard

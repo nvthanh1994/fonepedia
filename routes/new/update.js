@@ -8,13 +8,13 @@ module.exports = function (req, res) {
         'UPDATE New SET new_title=\'' + news.new_title + '\', new_content=\'' + news.new_content + '\' ' + ', new_avatar=\''+news.new_avatar +'\' ' + ', new_date=\''+new_date +'\' ' +
         'WHERE new_id =\'' + news.new_id + '\'',
         function (err, rows, fields) {
+            console.log( 'UPDATE New SET new_title=\'' + news.new_title + '\', new_content=\'' + news.new_content + '\' ' + ', new_avatar=\''+news.new_avatar +'\' ' +
+            'WHERE new_id =\'' + news.new_id + '\'');
             if (err) {
                 res.json({error_code: 1, msg: err.toString()});
                 console.log('Errr');
                 return;
             }
-            console.log( 'UPDATE New SET new_title=\'' + news.new_title + '\', new_content=\'' + news.new_content + '\' ' + ', new_avatar=\''+news.new_avatar +'\' ' +
-            'WHERE new_id ="' + news.new_id + '"');
             res.json({error_code: 0});
         }
     );

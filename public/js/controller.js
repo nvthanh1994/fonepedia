@@ -50,25 +50,25 @@ myAppCtrl.controller('PhoneListCtrl', ['$rootScope', '$scope', 'Phone', 'Brand',
 myAppCtrl.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone', 'Brand', 'Review', 'Image', function ($scope, $routeParams, Phone, Brand, Review, Image) {
     Phone.get({phoneId: $routeParams.phoneId}).$promise.then(function (res) {
 
-        res.phone.imagesUrl = Image.get({phoneId : res.phone.phone_id});
-        Image.get({phoneId : res.phone.phone_id}).$promise.then(function(res2){
+        res.phone.imagesUrl = Image.get({phoneId: res.phone.phone_id});
+        Image.get({phoneId: res.phone.phone_id}).$promise.then(function (res2) {
             // Gallery
             $scope.myInterval = 5000;
             var slides = $scope.slides = [];
-            $scope.addSlide = function(i) {
+            $scope.addSlide = function (i) {
                 //var newWidth = 600 + slides.length + 1;
                 slides.push({
                     //image: 'http://placekitten.com/' + newWidth + '/300'
-                    image : res2.images[i].imageUrl
+                    image: res2.images[i].imageUrl
                 });
             };
-            for (var i=0; i<res2.images.length; i++) {
+            for (var i = 0; i < res2.images.length; i++) {
                 $scope.addSlide(i);
             }
             //console.log(res2.images.length);
             //console.log(res2.images[0]);
         });
-        res.similar = Brand.get({brandId: res.phone.brand_id });
+        res.similar = Brand.get({brandId: res.phone.brand_id});
         $scope.phone = res.phone;
         $scope.similar = res.similar;
         console.log($scope.phone);
@@ -81,16 +81,15 @@ myAppCtrl.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone', 'Bra
     });
 
 
-
 }]);
 
 myAppCtrl.controller('ReviewListCtrl', ['$scope', 'Review', 'Image', function ($scope, Review, Image) {
     console.log("Here");
-    $scope.orderProp = 'title';
+    $scope.orderProp = 'review_date';
     $scope.info = "At review list";
     Review.query().$promise.then(function (res) {
-        for(var i=0;i<res.review.length;i++){
-            res.review[i].imagesUrl = Image.get({phoneId : res.review[i].phone_id})
+        for (var i = 0; i < res.review.length; i++) {
+            res.review[i].imagesUrl = Image.get({phoneId: res.review[i].phone_id})
         }
         $scope.reviews = res.review;
     });
@@ -102,7 +101,7 @@ myAppCtrl.controller('ReviewDetailCtrl', ['$scope', 'Review', '$routeParams', fu
         review_id: '0',
         review_title: 'None',
         review_content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi architecto beatae consectetur, dolor dolore ducimus eveniet ex illo inventore officia, pariatur placeat quibusdam reiciendis repellendus, sapiente sed similique ullam voluptate.',
-        review_avatar : 'http://localhost:8000/img/phones/review_default.png',
+        review_avatar: 'http://localhost:8000/img/phones/review_default.png',
         phone_id: 'none'
     }
 
@@ -112,23 +111,38 @@ myAppCtrl.controller('ReviewDetailCtrl', ['$scope', 'Review', '$routeParams', fu
     });
 }]);
 
-myAppCtrl.controller('NewListCtrl',['$scope','New',function($scope,New){
-
+myAppCtrl.controller('NewListCtrl', ['$scope', 'New', function ($scope, New) {
+    console.log("Here");
+    $scope.orderProp = 'new_date';
+    $scope.info = "At new list";
+    New.query().$promise.then(function (res) {
+        $scope.news = res.new;
+    });
 }]);
 
-myAppCtrl.controller('NewDetailCtrl',['$scope','New', '$routeParams', function($scope,New, $routeParams){
-
+myAppCtrl.controller('NewDetailCtrl', ['$scope', 'New', '$routeParams', function ($scope, New, $routeParams) {
+    $scope.info = "At new detail";
+    New.get({newId: $routeParams.newId}).$promise.then(function (res) {
+        $scope.new = res.new;
+        console.log($scope.new);
+    });
 }]);
 
 // Craft :v.
-myAppCtrl.controller('DashboardCtrl', ['Image', 'Brand', 'Phone', 'Review', '$route', '$timeout', '$scope', '$http', 'StorageService', '$location', function (Image, Brand, Phone, Review, $route, $timeout, $scope, $http, StorageService, $location) {
-    // Authetication
+myAppCtrl.controller('DashboardCtrl', ['New', 'Image', 'Brand', 'Phone', 'Review', '$route', '$timeout', '$scope', '$http', 'StorageService', '$location', function (New, Image, Brand, Phone, Review, $route, $timeout, $scope, $http, StorageService, $location) {
+    $scope.orderProp1 = 'phone_name';
+    $scope.orderProp2 = 'review_date';
+    $scope.orderProp3 = 'new_date';
+
+    /**
+     * Authentication Controller
+     * @type {{username: string, password: string}}
+     */
     $scope.user = {
         username: "",
         password: ""
     }
     $scope.wrongUser = false;
-
 
     // Kiểm tra key isLogined trong localStorage
     if (StorageService.get('isLogined')) {
@@ -181,12 +195,15 @@ myAppCtrl.controller('DashboardCtrl', ['Image', 'Brand', 'Phone', 'Review', '$ro
     }
 
 
-    // Phone Management
+    /**
+     * Phone Controller
+     * @type {string[]}
+     */
     $scope.listBrandId = ['apple', 'blackberry', 'asus', 'htc', 'huawei', 'lenovo', 'lg', 'microsoft', 'nokia', 'xiaomi', 'oppo', 'motorola', 'samsung', 'sharp', 'sony'];
 
     $scope.loadPhone = function () {
         Phone.query().$promise.then(function (res) {
-            for (var i = 0; i <res.phone.length; i++) {
+            for (var i = 0; i < res.phone.length; i++) {
                 res.phone[i].imagesUrl = Image.get({phoneId: res.phone[i].phone_id})
             }
             $scope.phones = res.phone;
@@ -200,8 +217,8 @@ myAppCtrl.controller('DashboardCtrl', ['Image', 'Brand', 'Phone', 'Review', '$ro
     }
     $scope.currentPhone = {};
 
-    $scope.updatePhone = function(phone){
-        Phone.get({phoneId : phone.phone_id}).$promise.then(function(res){
+    $scope.updatePhone = function (phone) {
+        Phone.get({phoneId: phone.phone_id}).$promise.then(function (res) {
             phone = res.phone;
         });
     }
@@ -243,12 +260,23 @@ myAppCtrl.controller('DashboardCtrl', ['Image', 'Brand', 'Phone', 'Review', '$ro
         alert(JSON.stringify(phone, null, " \n "));
         //console.log(JSON.stringify($scope.currentPhone,null," \n "));
     }
-
-    //
+    $scope.deleteImage = function (imageId) {
+        console.log(imageId);
+        $http.delete('v1/api/image/' + imageId).success(function (data, status, headers, config) {
+            console.log("delete " + imageId + ' ok !');
+        }).error(function (data, status, headers, config) {
+            console.log('delete not ok');
+        });
+        $scope.loadPhone();
+        $scope.updatePhone($scope.currentPhone);
+    }
+    /**
+     * Review Controller
+     */
     $scope.loadReview = function () {
         Review.query().$promise.then(function (res) {
-            for(var i=0;i<res.review.length;i++){
-                res.review[i].imagesUrl = Image.get({phoneId : res.review[i].phone_id})
+            for (var i = 0; i < res.review.length; i++) {
+                res.review[i].imagesUrl = Image.get({phoneId: res.review[i].phone_id})
             }
             $scope.reviews = res.review;
 
@@ -294,23 +322,64 @@ myAppCtrl.controller('DashboardCtrl', ['Image', 'Brand', 'Phone', 'Review', '$ro
         $scope.loadReview();     // Reload reviewlist
     }
 
-    $scope.deleteImage = function(imageId){
-        console.log(imageId);
-        $http.delete('v1/api/image/'+imageId).success(function(data,status,headers,config){
-            console.log("delete " + imageId + ' ok !');
-        }).error(function(data,status,headers,config){
-            console.log('delete not ok');
+    /**
+     * News Controller
+     */
+    $scope.loadNew = function () {
+        New.query().$promise.then(function (res) {
+            $scope.news = res.new;
+            $scope.addnew = angular.copy($scope.news[0]);
+            for (var key in $scope.addnew) {
+                if ($scope.addnew.hasOwnProperty(key)) {
+                    $scope.addnew[key] = '';
+                }
+            }
         });
-        $scope.loadPhone();
-        $scope.updatePhone($scope.currentPhone);
+    }
+    $scope.currentNew = {};
+
+    $scope.changeNew = function (review) {
+        $scope.currentNew = review;
+        console.log("Here, delete new");
+        console.log($scope.currentNew);
+    }
+    $scope.deleteNew = function () {
+        console.log("Deleting " + $scope.currentNew.new_id);
+        New.delete({newId: $scope.currentNew.new_id});
+        $scope.loadNew();     // Reload newList
     }
 
+    $scope.createNew = function () {
+        console.log("Creating " + $scope.addnew);
+        $http.post('v1/api/new', $scope.addnew).success(function (data, status, headers, config) {
+            console.log('Post OK new');
+        }).error(function (data, status, headers, config) {
+            console.log('Post error new');
+        });
+        $scope.loadNew();
+    }
+    $scope.editNew = function () {
+        console.log("Editing " + $scope.currentNew.new_title);
+        console.log("Editing " + $scope.currentNew.new_content);
+        console.log($scope.currentNew);
+        $http.put('v1/api/new', $scope.currentNew).success(function (data, status, headers, config) {
+            console.log("Put new OK ");
+        }).error(function (data, status, headers, config) {
+            console.log('Put new error');
+        });
+        $scope.loadNew();     // Reload newlist
+    }
+
+    /**
+     * Upload Controller
+     * @param content
+     */
     $scope.uploadComplete = function (content) {
         console.log(content);
         $scope.response = content;
     };
 
-    $scope.tempId='review';
+    $scope.tempId = 'dumb';
 
 }]);
 

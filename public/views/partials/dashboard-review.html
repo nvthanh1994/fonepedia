@@ -3,37 +3,38 @@
         <div class="col-md-3">
             <!--Sidebar content-->
             <div>
-                Search : <input ng-model="searchquery" class="form-control"> <br>
+                Search : <input ng-model="searchquery1" class="form-control"> <br>
             </div>
             <!-- Filter -->
             <div>
                 Sort by :
-                <select ng-model="orderProp" style="min-width: 70%;">
-                    <option selected value="review_title">Alphabet</option>
-                    <option value="review_date">Newest</option>
+                <select ng-model="orderProp2" style="min-width: 70%;">
+                    <option value="review_title" >Alphabet</option>
+                    <option value="review_date" selected>Newest</option>
                 </select>
                 <hr/>
             </div>
             <div class="btn-group">
-                <button class="btn btn-info text-muted" ng-click="loadReview()">Show Reviews</button>
-                <button class="btn btn-success text-muted" data-toggle="modal" data-target="#reviewCreateModal" ng-click="addReview()">Add Review</button>
+                <button class="btn btn-info text-muted btn-sm" ng-click="loadReview()">Show Reviews</button>
+                <button class="btn btn-success text-muted btn-sm" data-toggle="modal" data-target="#reviewCreateModal" ng-click="addReview()">Add Review</button>
             </div>
         </div>
 
         <div class="col-md-9">
             <!--Body content-->
             <ul class="phones">
-                <li ng-repeat="review in reviews | filter:searchquery | orderBy:orderProp" class="thumbnail">
+                <li ng-repeat="review in reviews | filter:searchquery1 | orderBy:-orderProp2" class="thumbnail">
                     <!--<a href="#/reviews/{{review.phone_id}}" class="thumb"><img ng-src="{{review.imageUrl.images[0].imageUrl}}"></a>-->
                     <img ng-src="{{review.imagesUrl.images[0].imageUrl}}" class="thumb" ng-show="review.imagesUrl.images[0].imageUrl"/>
                     <img src="./img/phones/default.png" alt="" ng-hide="review.imagesUrl.images[0].imageUrl" class="thumb"/>
                     <a href="#/reviews/{{review.phone_id}}">{{review.review_title}}</a>
-
-                    <p>{{review.review_content | limitTo : 80}}</p>
+                    <!--<hr/>-->
+                    <p>by fonePedia team, at {{review.review_date}}</p>
+                    <!--<p>{{review.review_content | limitTo : 80}}</p>-->
 
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reviewEditModal" ng-click="changeReview(review)">Edit</button>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#reviewDeleteModal" ng-click="changeReview(review)">Delete</button>
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#reviewEditModal" ng-click="changeReview(review)">Edit</button>
+                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#reviewDeleteModal" ng-click="changeReview(review)">Delete</button>
                     </div>
                 </li>
             </ul>
@@ -75,6 +76,33 @@
                                     <text-angular ng-model="addreview.review_content"></text-angular>
                                 </div>
                             </div>
+                        </form>
+                        <form class="form-horizontal" ng-upload="uploadComplete(content)" action="/v1/api/image">
+                            <p ng-hide="true">
+                                <label class="control-label col-sm-4">phone_id:</label>
+                                <input type="text" name="phone_id" ng-model="tempId"/>
+                            </p>
+
+                            <p>
+                                <label class="control-label col-sm-4">Choose Image:</label>
+                                <input type="file" name="image"/>
+                            </p>
+
+                            <p class="col-sm-offset-4">
+                                <input type="submit" class="btn btn-sm btn-primary" value="Submit" ng-disabled="$isUploading"/>
+                            </p>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Server response : </label>
+
+                                <div class="col-sm-6">
+                                    <input type="text" ng-model="response.imageUrl" class="form-control"/>
+                                </div>
+
+                            </div>
+
+                            <br/>
+                            <br/>
                         </form>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
@@ -144,6 +172,7 @@
 
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Server response : </label>
+
                                 <div class="col-sm-6">
                                     <input type="text" ng-model="response.imageUrl" class="form-control"/>
                                 </div>

@@ -1,10 +1,227 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <!--Sidebar content-->
+            <div>
+                Search : <input ng-model="searchquery3" class="form-control"> <br>
+            </div>
+            <!-- Filter -->
+            <div>
+                Sort by :
+                <select ng-model="orderProp3" style="min-width: 70%;">
+                    <option value="new_title">Alphabet</option>
+                    <option value="new_date" selected>Newest</option>
+                </select>
+                <hr/>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-info text-muted btn-sm" ng-click="loadNew()">Show news</button>
+                <button class="btn btn-success text-muted btn-sm" data-toggle="modal" data-target="#newCreateModal" ng-click="addNew()">Add new</button>
+            </div>
+        </div>
 
-</body>
-</html>
+        <div class="col-md-9">
+            <!--Body content-->
+            <ul class="phones">
+                <li ng-repeat="new in news | filter:searchquery3 | orderBy:-orderProp3" class="thumbnail">
+                    <img ng-src="{{new.new_avatar}}" class="thumb"/>
+                    <a href="#/news/{{new.new_id}}">{{new.new_title}}</a>
+
+                    <p>by fonePedia team, at {{new.new_date}}</p>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#newEditModal" ng-click="changeNew(new)">Edit</button>
+                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#newDeleteModal" ng-click="changeNew(new)">Delete</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Create  Modal - Use form validation -->
+        <div class="modal fade" id="newCreateModal" role="dialog">
+            <div class="modal-dialog  custom-class">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Create new news. Enter the detail : </h4>
+                        <hr style="border: 1px solid rgba(6, 7, 176, 0.66);">
+                    </div>
+                    <div class="modal-body">
+                        <!--<p>{{addnew | json}}</p>-->
+
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">new_title:</label>
+
+                                <div class="col-sm-10">
+                                    <input class="form-control" ng-model="addnew.new_title">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">new_content:</label>
+
+                                <div class="col-sm-10">
+                                    <!--<textarea name="newcontent" id="rc" cols="30" rows="30" ng-model="addnew.new_content" class="form-control"></textarea>-->
+                                    <text-angular ng-model="addnew.new_content"></text-angular>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">new_avatar:</label>
+
+                                <div class="col-sm-10">
+                                    <input class="form-control" ng-model="addnew.new_avatar">
+                                </div>
+                            </div>
+                            <hr style="border: 1px solid rgba(6, 7, 176, 0.66);">
+                        </form>
+                        <h4>Upload Dialog</h4>
+                        <form class="form-horizontal" ng-upload="uploadComplete(content)" action="/v1/api/image">
+                            <p ng-hide="true">
+                                <label class="control-label col-sm-4">phone_id:</label>
+                                <input type="text" name="phone_id" ng-model="tempId"/>
+                            </p>
+
+                            <p>
+                                <label class="control-label col-sm-4">Choose Image:</label>
+                                <input type="file" name="image"/>
+                            </p>
+
+                            <p class="col-sm-offset-4">
+                                <input type="submit" class="btn btn-sm btn-primary" value="Submit" ng-disabled="$isUploading"/>
+                            </p>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Server response : </label>
+
+                                <div class="col-sm-6">
+                                    <input type="text" ng-model="response.imageUrl" class="form-control"/>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                        </form>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default" ng-click="showInfo(addnew)">Preview</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="createNew()">CREATE</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit  Modal -->
+        <div class="modal fade" id="newEditModal" role="dialog">
+            <div class="modal-dialog  custom-class">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Edit {{currentNew.new_title}} detail</h4>
+                        <hr style="border: 1px solid rgba(6, 7, 176, 0.66);">
+                    </div>
+                    <div class="modal-body">
+                        <!--<p>{{currentPhone | json}}</p>-->
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">new_title:</label>
+
+                                <div class="col-sm-10">
+                                    <input class="form-control" ng-model="currentNew.new_title">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">new_content:</label>
+
+                                <div class="col-sm-10">
+                                    <!--<textarea name="newcontent2" id="rc2" cols="30" rows="30" ng-model="currentNew.new_content" class="form-control"></textarea>-->
+                                    <text-angular ng-model="currentNew.new_content"></text-angular>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">new_avatar:</label>
+
+                                <div class="col-sm-10">
+                                    <input class="form-control" ng-model="currentNew.new_avatar">
+                                </div>
+                            </div>
+                            <hr style="border: 1px solid rgba(6, 7, 176, 0.66);">
+                        </form>
+                        <h4>Upload Dialog</h4>
+
+                        <form class="form-horizontal" ng-upload="uploadComplete(content)" action="/v1/api/image">
+                            <p ng-hide="true">
+                                <label class="control-label col-sm-4">phone_id:</label>
+                                <input type="text" name="phone_id" ng-model="tempId"/>
+                            </p>
+
+                            <p>
+                                <label class="control-label col-sm-4">Choose Image:</label>
+                                <input type="file" name="image"/>
+                            </p>
+
+                            <p class="col-sm-offset-4">
+                                <input type="submit" class="btn btn-sm btn-primary" value="Submit" ng-disabled="$isUploading"/>
+                            </p>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Server response : </label>
+
+                                <div class="col-sm-6">
+                                    <input type="text" ng-model="response.imageUrl" class="form-control"/>
+                                </div>
+
+                            </div>
+
+                            <br/>
+                            <br/>
+                        </form>
+                        <div class="form-group">
+                            <hr/>
+                            <div class="col-sm-offset-4 col-sm-10">
+                                <button type="submit" class="btn btn-default" ng-click="showInfo(currentNew)">Pnew</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="editNew()">EDIT</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete  Modal -->
+        <div class="modal fade" id="newDeleteModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Confirm Delete</h4>
+                        <hr/>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure to delete this new : <span class="text-danger h5">{{currentNew.new_title}}</span> ? </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteNew()">YES</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">NO</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

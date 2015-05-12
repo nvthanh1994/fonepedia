@@ -53,7 +53,13 @@ myAppServices.factory('Image', ['$resource', function ($resource) {
 
 // New Service
 myAppServices.factory('New',['$resource',function($resource){
-    return $resource('v1/api/image/:phoneId',{},{
+    return $resource('v1/api/new/:newId', {}, {
+        query: {
+            method: 'GET',
+            params: {
+                reviewId: ''
+            }
+        }
     });
 }]);
 

@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <!--Sidebar content-->
             <div>
                 Search : <input ng-model="query" class="form-control"> <br>
@@ -16,15 +16,17 @@
             </div>
         </div>
 
-        <div class="col-md-9">
+        <div class="col-md-10">
             <!--Body content-->
             <ul class="phones">
-                <li ng-repeat="review in reviews | filter:query | orderBy:orderProp" class="thumbnail">
+                <li ng-repeat="review in reviews | filter:query | orderBy:-orderProp" class="thumbnail">
                     <!--<a href="#/reviews/{{review.phone_id}}" class="thumb"><img ng-src="{{review.imageUrl.images[0].imageUrl}}"></a>-->
                     <img ng-src="{{review.imagesUrl.images[0].imageUrl}}" class="thumb" ng-show="review.imagesUrl.images[0].imageUrl"/>
                     <img src="./img/phones/default.png" alt="" ng-hide="review.imagesUrl.images[0].imageUrl" class="thumb"/>
                     <a href="#/reviews/{{review.phone_id}}">{{review.review_title}}</a>
-                    <p>{{review.review_content | limitTo:100}}</p>
+                    <hr/>
+                    <p>by fonePedia team, at {{review.review_date}}</p>
+                    <!--<p>{{review.review_content | limitTo:100}}</p>-->
                 </li>
             </ul>
         </div>
