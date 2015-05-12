@@ -21,7 +21,7 @@ module.exports = function (req, res) {
 
       'SELECT * ' +
       'FROM Phone,Spes,Brand ' +
-      'WHERE Phone.brand_id=Brand.brand_id and Spes.phone_id=Phone.phone_id ' +
+      'WHERE Phone.brand_id=Brand.brand_id and Spes.phone_id=Phone.phone_id  and Phone.phone_id!="dumb"' +
       'ORDER BY Phone.phone_name',
       function (err, rows, fields) {
           if (err) {
