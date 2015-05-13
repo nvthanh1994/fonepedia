@@ -36,10 +36,17 @@ CREATE TABLE `Brand` (
 -- Dumping data for table `Brand`
 --
 
+<<<<<<< HEAD:database_export/Thanh-fonepedia.sql
 LOCK TABLES `Brand` WRITE;
 /*!40000 ALTER TABLE `Brand` DISABLE KEYS */;
 INSERT INTO `Brand` VALUES ('apple','Apple',2,'apple.jpg','Think Different'),('asus','Asus',0,'asus.jpg','In Search of Incredible.'),('blackberry','BlackBerry',0,'blackberry.jpg','One brand. One promise.'),('htc','HTC',0,'htc.jpg','Quite brilliant'),('huawei','Huawei',0,'huawei.jpg','Make It Possible'),('lenovo','Lenovo',0,'lenovo.jpg','For those who do.'),('lg','LG',0,'lg.jpg',' Life\'s Good'),('microsoft','Microsoft',0,'microsoft.jpg','Be what\'s next.'),('motorola','Motorola',0,'motorola.jpg','Hello Moto'),('nokia','Nokia',0,'nokia.jpg','Connecting People'),('oppo','Oppo',0,'oppo.jpg','Never Stop Finding'),('samsung','Samsung',0,'samsung.jpg','Imagine'),('sharp','Sharp',0,'sharp.jpg','Sharp your skills'),('sony','Sony',1,'sony.jpg','Make believe.');
 /*!40000 ALTER TABLE `Brand` ENABLE KEYS */;
+=======
+LOCK TABLES `brand` WRITE;
+/*!40000 ALTER TABLE `brand` DISABLE KEYS */;
+INSERT INTO `brand` VALUES ('apple','Apple',3,'apple.jpg','Think Different'),('asus','Asus',0,'asus.jpg','In Search of Incredible.'),('blackberry','BlackBerry',0,'blackberry.jpg','One brand. One promise.'),('htc','HTC',0,'htc.jpg','Quite brilliant'),('huawei','Huawei',0,'huawei.jpg','Make It Possible'),('lenovo','Lenovo',0,'lenovo.jpg','For those who do.'),('lg','LG',0,'lg.jpg',' Life\'s Good'),('microsoft','Microsoft',0,'microsoft.jpg','Be what\'s next.'),('motorola','Motorola',0,'motorola.jpg','Hello Moto'),('nokia','Nokia',0,'nokia.jpg','Connecting People'),('oppo','Oppo',0,'oppo.jpg','Never Stop Finding'),('samsung','Samsung',0,'samsung.jpg','Imagine'),('sharp','Sharp',0,'sharp.jpg','Sharp your skills'),('sony','Sony',1,'sony.jpg','Make believe.');
+/*!40000 ALTER TABLE `brand` ENABLE KEYS */;
+>>>>>>> 1aab825817d66378ef4fd848da63c0dedb213896:database_export/thanhnv-fonepedia.sql
 UNLOCK TABLES;
 
 --
@@ -54,13 +61,14 @@ CREATE TABLE `Image` (
   `imageUrl` varchar(100) NOT NULL,
   `phone_id` varchar(45) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`image_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `Image`
 --
 
+<<<<<<< HEAD:database_export/Thanh-fonepedia.sql
 LOCK TABLES `Image` WRITE;
 /*!40000 ALTER TABLE `Image` DISABLE KEYS */;
 INSERT INTO `Image` VALUES (4,'http://localhost:8000/img/phones/1430862903047.png','sony-xperia-z'),(5,'http://localhost:8000/img/phones/1430863472365.png','sony-xperia-z'),(6,'http://localhost:8000/img/phones/1430863142904.png','sony-xperia-z'),(7,'http://localhost:8000/img/phones/1430877799992.png','apple-iphone-5s'),(8,'http://localhost:8000/img/phones/1430877592841.png','apple-iphone-6');
@@ -69,6 +77,43 @@ UNLOCK TABLES;
 
 --
 -- Table structure for table `Phone`
+=======
+LOCK TABLES `image` WRITE;
+/*!40000 ALTER TABLE `image` DISABLE KEYS */;
+INSERT INTO `image` VALUES (4,'http://localhost:8000/img/phones/1430862903047.png','sony-xperia-z'),(5,'http://localhost:8000/img/phones/1430863472365.png','sony-xperia-z'),(6,'http://localhost:8000/img/phones/1430863142904.png','sony-xperia-z'),(7,'http://localhost:8000/img/phones/1430877799992.png','apple-iphone-5s'),(8,'http://localhost:8000/img/phones/1430877592841.png','apple-iphone-6'),(9,'http://localhost:8000/img/phones/1431111559650.png','review'),(10,'http://localhost:8000/img/phones/1431111543073.png','apple-iphone-4s'),(11,'http://localhost:8000/img/phones/1431112263825.png','apple-iphone-4s');
+/*!40000 ALTER TABLE `image` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `new`
+--
+
+DROP TABLE IF EXISTS `new`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `new` (
+  `new_id` int(11) NOT NULL AUTO_INCREMENT,
+  `new_title` varchar(100) DEFAULT NULL,
+  `new_content` longtext,
+  `new_avatar` varchar(100) DEFAULT NULL,
+  `new_date` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`new_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `new`
+--
+
+LOCK TABLES `new` WRITE;
+/*!40000 ALTER TABLE `new` DISABLE KEYS */;
+INSERT INTO `new` VALUES (1,'new new new','Test','http://localhost:8000/img/phones/new-default.png','2015-05-08 19:53:54'),(2,'new new new','Test','http://localhost:8000/img/phones/new-default.png','2015-05-08 19:53:59');
+/*!40000 ALTER TABLE `new` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `phone`
+>>>>>>> 1aab825817d66378ef4fd848da63c0dedb213896:database_export/thanhnv-fonepedia.sql
 --
 
 DROP TABLE IF EXISTS `Phone`;
@@ -88,10 +133,17 @@ CREATE TABLE `Phone` (
 -- Dumping data for table `Phone`
 --
 
+<<<<<<< HEAD:database_export/Thanh-fonepedia.sql
 LOCK TABLES `Phone` WRITE;
 /*!40000 ALTER TABLE `Phone` DISABLE KEYS */;
 INSERT INTO `Phone` VALUES ('apple-iphone-5s','Apple iPhone 5S','apple'),('apple-iphone-6','Apple iPhone 6','apple'),('sony-xperia-z','Sony Xperia Z','sony');
 /*!40000 ALTER TABLE `Phone` ENABLE KEYS */;
+=======
+LOCK TABLES `phone` WRITE;
+/*!40000 ALTER TABLE `phone` DISABLE KEYS */;
+INSERT INTO `phone` VALUES ('apple-iphone-4s','Apple iPhone 4S','apple'),('apple-iphone-5s','Apple iPhone 5S','apple'),('apple-iphone-6','Apple iPhone 6','apple'),('sony-xperia-z','Sony Xperia Z','sony');
+/*!40000 ALTER TABLE `phone` ENABLE KEYS */;
+>>>>>>> 1aab825817d66378ef4fd848da63c0dedb213896:database_export/thanhnv-fonepedia.sql
 UNLOCK TABLES;
 
 --
@@ -106,20 +158,28 @@ CREATE TABLE `Review` (
   `phone_id` varchar(45) NOT NULL,
   `review_title` varchar(100) DEFAULT NULL,
   `review_content` longtext,
+  `review_date` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`review_id`),
   KEY `phone_id_idx` (`phone_id`),
   CONSTRAINT `phone_review` FOREIGN KEY (`phone_id`) REFERENCES `phone` (`phone_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `Review`
 --
 
+<<<<<<< HEAD:database_export/Thanh-fonepedia.sql
 LOCK TABLES `Review` WRITE;
 /*!40000 ALTER TABLE `Review` DISABLE KEYS */;
 INSERT INTO `Review` VALUES (1,'apple-iphone-6','Review Apple iPhone 6','<div style=\"color: rgb(20, 20, 20);text-align: center;background-color: rgb(255, 255, 255);\"><img src=\"https://photo.tinhte.vn/store/2014/10/2613601_Tinhte-review-iphone-6-tuyet-voi-32.jpg\" alt=\"Tinhte-review-iphone-6-tuyet-voi-32.\" class=\"bbCodeImage LbImage\"/>​</div><span style=\"color: rgb(20, 20, 20);text-align: left;float: none;background-color: rgb(255, 255, 255);\">Mình xếp iPhone 6 là chiếc điện thoai thông minh tốt nhất hiện nay. Nó được tổng hợp từ nhiều yêu tố khác nhau mà không có chiếc điện thoại nào khác trên thị trường có thể đáp ứng toàn diện được như iPhone 6. Mời anh em đọc để biết được cái hay, cái không hay của nó. Dĩ nhiên không có chuyện một cho mọi người (one size fits all) nên nếu định mua iPhone 6 thì anh em nên tìm hiểu kỹ. Review này được tổng hợp sao gần một tháng sử dụng và trên cơ sở đã dùng qua rất nhiều điện thoại thông minh cao cấp của nhiều hãng khác nhau.</span>'),(2,'sony-xperia-z','Sony Xperia Z Review','<p>bla bla</p>');
 /*!40000 ALTER TABLE `Review` ENABLE KEYS */;
+=======
+LOCK TABLES `review` WRITE;
+/*!40000 ALTER TABLE `review` DISABLE KEYS */;
+INSERT INTO `review` VALUES (1,'apple-iphone-6','Review Apple iPhone 6','<div style=\"color: rgb(20, 20, 20);text-align: center;background-color: rgb(255, 255, 255);\"><img src=\"https://photo.tinhte.vn/store/2014/10/2613601_Tinhte-review-iphone-6-tuyet-voi-32.jpg\" alt=\"Tinhte-review-iphone-6-tuyet-voi-32.\" class=\"bbCodeImage LbImage\"/>​</div><span style=\"color: rgb(20, 20, 20);text-align: left;float: none;background-color: rgb(255, 255, 255);\">Mình xếp iPhone 6 là chiếc điện thoai thông minh tốt nhất hiện nay. Nó được tổng hợp từ nhiều yêu tố khác nhau mà không có chiếc điện thoại nào khác trên thị trường có thể đáp ứng toàn diện được như iPhone 6. Mời anh em đọc để biết được cái hay, cái không hay của nó. Dĩ nhiên không có chuyện một cho mọi người (one size fits all) nên nếu định mua iPhone 6 thì anh em nên tìm hiểu kỹ. Review này được tổng hợp sao gần một tháng sử dụng và trên cơ sở đã dùng qua rất nhiều điện thoại thông minh cao cấp của nhiều hãng khác nhau.</span>',NULL),(2,'sony-xperia-z','Sony Xperia Z Review','<p>bla bla</p>',NULL);
+/*!40000 ALTER TABLE `review` ENABLE KEYS */;
+>>>>>>> 1aab825817d66378ef4fd848da63c0dedb213896:database_export/thanhnv-fonepedia.sql
 UNLOCK TABLES;
 
 --
@@ -164,17 +224,24 @@ CREATE TABLE `Spes` (
   PRIMARY KEY (`spes_id`),
   KEY `phone_id_idx` (`phone_id`),
   CONSTRAINT `phone_id` FOREIGN KEY (`phone_id`) REFERENCES `phone` (`phone_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `Spes`
 --
 
+<<<<<<< HEAD:database_export/Thanh-fonepedia.sql
 LOCK TABLES `Spes` WRITE;
 /*!40000 ALTER TABLE `Spes` DISABLE KEYS */;
 INSERT INTO `Spes` VALUES (1,'apple-iphone-6','bla bla bla','bla bla bla','bla bla bla','bla bla bla','bla bla bla','bla bla bla','bla bla bla','bla bla bla','bla bla bla','bla bla bla','bla bla bla',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'bla bla bla','bla bla bla'),(2,'apple-iphone-5s','bla bla bla','bla bla bla','bla bla bla','bla bla bla','bla bla bla',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,'sony-xperia-z','bla bla bla','March, 2013','August, 2013',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `Spes` ENABLE KEYS */;
+=======
+LOCK TABLES `spes` WRITE;
+/*!40000 ALTER TABLE `spes` DISABLE KEYS */;
+INSERT INTO `spes` VALUES (1,'apple-iphone-6','bla bla bla','bla bla bla','bla bla bla','bla bla bla','bla bla bla','bla bla bla','bla bla bla','bla bla bla','bla bla bla','bla bla bla','bla bla bla',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'bla bla bla','bla bla bla'),(2,'apple-iphone-5s','bla bla bla','bla bla bla','bla bla bla','bla bla bla','bla bla bla',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,'sony-xperia-z','bla bla bla','March, 2013','August, 2013',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,'apple-iphone-4s',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `spes` ENABLE KEYS */;
+>>>>>>> 1aab825817d66378ef4fd848da63c0dedb213896:database_export/thanhnv-fonepedia.sql
 UNLOCK TABLES;
 
 --
@@ -211,4 +278,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-06  9:00:38
+-- Dump completed on 2015-05-09  2:55:14

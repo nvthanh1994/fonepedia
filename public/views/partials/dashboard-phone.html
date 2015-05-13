@@ -3,20 +3,20 @@
         <div class="col-md-3">
             <!--Sidebar content-->
             <div>
-                Search : <input ng-model="searchquery" class="form-control"> <br>
+                Search : <input ng-model="searchquery2" class="form-control"> <br>
             </div>
             <!-- Filter -->
             <div>
                 Sort by :
-                <select ng-model="orderProp" style="min-width: 70%;">
-                    <option selected value="phone_name">Alphabet</option>
+                <select ng-model="orderProp1" style="min-width: 70%;">
+                    <option value="phone_name" selected >Alphabet</option>
                     <option value="general_status">Newest</option>
                 </select>
                 <hr/>
             </div>
             <div class="btn-group">
-                <button class="btn btn-info text-muted" ng-click="loadPhone()">Show Phones</button>
-                <button class="btn btn-success text-muted" data-toggle="modal" data-target="#phoneCreateModal" ng-click="addPhone()">Add Phones</button>
+                <button class="btn btn-info text-muted btn-sm" ng-click="loadPhone()">Show Phones</button>
+                <button class="btn btn-success text-muted btn-sm" data-toggle="modal" data-target="#phoneCreateModal" ng-click="addPhone()">Add Phones</button>
             </div>
 
         </div>
@@ -24,7 +24,7 @@
         <div class="col-md-9">
             <!--Body content-->
             <ul class="phones">
-                <li ng-repeat="phone in phones | filter:searchquery | orderBy:orderProp" class="thumbnail">
+                <li ng-repeat="phone in phones | filter:searchquery2 | orderBy:-orderProp1" class="thumbnail">
                     <img ng-src="{{phone.imagesUrl.images[0].imageUrl}}" class="thumb" ng-show="phone.imagesUrl.images[0].imageUrl"/>
                     <img src="./img/phones/default.png" alt="" ng-hide="phone.imagesUrl.images[0].imageUrl" class="thumb"/>
                     <a href="#/phones/{{phone.phone_id}}">{{phone.phone_name}}</a>

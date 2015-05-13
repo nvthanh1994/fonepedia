@@ -70,7 +70,7 @@ module.exports = function (req, res) {
               res.json({error_code: 1, msg: err.toString()});
               return;
             }
-            if (rows.length === 0 && phone_id!='review') {
+            if (rows.length === 0 && phone_id!='dumb') {
               res.json({error_code: 1, msg: 'Phone is not exist'});
               return;
             }

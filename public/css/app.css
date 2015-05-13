@@ -13,14 +13,14 @@ body {
     float: left;
     margin: -0.5em 2.5em 2.5em 0em;
     padding-bottom: 0.5em;
-    padding-right: 8em;
-    max-height: 100px;
-    max-width: 100px;
+    padding-right: 4em;
+    max-height: 110px;
+    max-width: 110px;
 }
 
 .phones li {
     clear: both;
-    height: 115px;
+    height: 125px;
     padding-top: 15px;
 }
 
@@ -218,11 +218,15 @@ body {
 /* Two columns */
 .two-column {
     -moz-column-count: 2;
-    -moz-column-gap: 10.5em;
+    -moz-column-gap: 8.5em;
     -webkit-column-count: 2;
-    -webkit-column-gap: 10.5em;
+    -webkit-column-gap: 8.5em;
     column-count: 2;
-    column-gap: 10.5em;
+    column-gap: 8.5em;
+}
+
+.no-bullet{
+    list-style:  none;
 }
 
 .three-column {

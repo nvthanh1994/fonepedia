@@ -34,6 +34,13 @@ app.post('/v1/api/image', routes.image.create);
 app.get('/v1/api/image/:phone_id', routes.image.getAll);
 app.delete('/v1/api/image/:image_id',routes.image.delete);
 
+app.post('/v1/api/new', routes.new.create);
+app.get('/v1/api/new', routes.new.getAll);
+app.get('/v1/api/new/:id', routes.new.get);
+app.delete('/v1/api/new/:id', routes.new.delete);
+app.put('/v1/api/new', routes.new.update);
+
+
 var FRONTEND = ['/', '/group/:id', '/login', '/logout', '/config'];
 app.get(FRONTEND, function (req, res) {
   debug(req);

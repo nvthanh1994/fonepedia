@@ -1,15 +1,15 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="list-group  text-center">
-                <a href="./#/brands" class="list-group-item active"> Brands </a>
-                <a href="./#/brands/{{brand.brand_id}}" class="list-group-item" ng-repeat="brand in brands.brand">{{brand.brand_name}}</a>
+                <a href="./#/brands/{{phone.brand_id}}" class="list-group-item active"> Similar </a>
+                <a href="./#/phones/{{phonesim.phone_id}}" class="list-group-item" ng-repeat="phonesim in similar.phones">{{phonesim.phone_name}}</a>
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-10">
             <div class="row">
-                <a href="#/brands/{{phone[0].brand_id}}"><h5 class="text-primary" style="float:left;">{{phone.phone_name}}</h5></a>
-                <a href="#/brands/{{phone[0].brand_id}}"><img ng-src="./img/logo/{{phone.logoUrl}}" style="float:right;" alt="No logo found" class="img-thumbnail"/></a>
+                <a href="#/brands/{{phone.brand_id}}"><h5 class="text-primary" style="float:left;">{{phone.phone_name}}</h5></a>
+                <a href="#/brands/{{phone.brand_id}}"><img ng-src="./img/logo/{{phone.logoUrl}}" style="float:right;" alt="No logo found" class="img-thumbnail"/></a>
                 <br/>
                 <hr style="border: 2px solid rgba(192, 47, 137, 0.66);">
             </div>
@@ -222,7 +222,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Exit</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Exit</button>
             </div>
         </div>
     </div>
