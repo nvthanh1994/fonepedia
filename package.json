@@ -26,7 +26,8 @@
     "async": "",
     "formidable": "~1.0.17",
     "fs-extra": "~0.18.2",
-    "url" : "",
-    "mime" : ""
+    "url": "",
+    "mime": "",
+    "bower": "~1.4.1"
   }
 }

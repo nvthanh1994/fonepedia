@@ -183,7 +183,7 @@ module.exports = function (req, res) {
                 'VALUES ("' + phone.phone_name + '","' + phone.phone_id + '","' + phone.brand_id + '")',
                 function (err2, rows2, fields2) {
                   if (err2) {
-                    res.json({error_code: 1, msg: err.toString()});
+                    res.json({error_code: 1, msg: err2.toString()});
                     return;
                   }
                   console.log(rows2);
